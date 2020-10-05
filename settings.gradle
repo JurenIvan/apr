@@ -1,0 +1,4 @@
+rootProject.name = 'apr'
+
+include 'Lab1'
+
