@@ -1,5 +1,6 @@
 package hr.fer.zemris.apr.math.matrix;
 
+import hr.fer.zemris.apr.math.matrix.decomposition.DecomposeStrategy;
 import hr.fer.zemris.apr.math.vector.IVector;
 
 public interface IMatrix {
@@ -37,4 +38,6 @@ public interface IMatrix {
     double[][] toArray();
 
     IVector toVector(boolean flag);
+
+    <T> T nDecompose(DecomposeStrategy<T> strategy);
 }
