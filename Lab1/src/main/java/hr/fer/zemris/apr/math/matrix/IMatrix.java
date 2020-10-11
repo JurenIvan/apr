@@ -1,6 +1,7 @@
 package hr.fer.zemris.apr.math.matrix;
 
 import hr.fer.zemris.apr.math.matrix.decomposition.DecomposeStrategy;
+import hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategy;
 import hr.fer.zemris.apr.math.matrix.inverse.InverseStrategy;
 import hr.fer.zemris.apr.math.vector.IVector;
 
@@ -43,4 +44,6 @@ public interface IMatrix {
     <T> T nDecompose(DecomposeStrategy<T> strategy);
 
     IMatrix inverse(InverseStrategy strategy);
+
+    double determinant(DeterminantStrategy strategy);
 }
