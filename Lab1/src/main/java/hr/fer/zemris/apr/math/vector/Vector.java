@@ -82,9 +82,19 @@ public class Vector extends AbstractVector {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Vector)) return false;
-        Vector vector = (Vector) o;
-        return Arrays.equals(elements, vector.elements);
+        if (!(o instanceof IVector)) return false;
+        IVector vector = (IVector) o;
+
+        return equals(vector, 4);
+    }
+
+    public boolean equals(IVector matrix, int precision) {
+        for (int i = 0; i < getDimension(); i++) {
+            if (Math.abs(get(i) - matrix.get(i)) > Math.pow(10, -1 * precision))
+                return false;
+
+        }
+        return true;
     }
 
     @Override

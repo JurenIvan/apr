@@ -88,7 +88,18 @@ public class Matrix extends AbstractMatrix {
         if (this == o) return true;
         if (!(o instanceof Matrix)) return false;
         Matrix matrix = (Matrix) o;
-        return Arrays.equals(elements, matrix.elements);
+
+        return equals(matrix, 4);
+    }
+
+    public boolean equals(Matrix matrix, int precision) {
+        for (int i = 0; i < getRowsCount(); i++) {
+            for (int j = 0; j < getColsCount(); j++) {
+                if (Math.abs(get(i, j) - matrix.get(i, j)) > Math.pow(10, -1 * precision))
+                    return false;
+            }
+        }
+        return true;
     }
 
     @Override
