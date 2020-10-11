@@ -67,33 +67,6 @@ public abstract class AbstractMatrix implements IMatrix {
     }
 
     @Override
-    public double determinant() {
-        if (getColsCount() == 1)
-            return get(0, 0);
-        if (getColsCount() == 2)
-            return get(0, 0) * get(1, 1) - get(1, 0) * get(0, 1);
-
-        double determinant = 0;
-        int sign = 1;
-        for (int i = 0; i < getColsCount(); i++, sign *= -1)
-            determinant += sign * get(0, i) * this.subMatrix(0, i, true).determinant();
-
-        return determinant;
-    }
-
-    @Override
-    public IMatrix nInvert() {
-        double determinant = 1 / (Math.abs(determinant()));
-        IMatrix transposed = this.nTranspose(false);
-        for (int i = 0; i < getRowsCount(); i++) {
-            for (int j = 0; j < getColsCount(); j++) {
-                transposed.set(i, j, Math.pow(-1, i + j) * determinant * subMatrix(i, j, true).determinant());
-            }
-        }
-        return transposed.nTranspose(true);
-    }
-
-    @Override
     public IVector toVector(boolean flag) {
         return flag ? new VectorMatrixView(this) : new VectorMatrixView(this.copy());
     }

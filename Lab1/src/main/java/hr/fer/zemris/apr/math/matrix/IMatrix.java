@@ -31,11 +31,7 @@ public interface IMatrix {
 
     IMatrix nMultiply(IMatrix other);
 
-    double determinant();
-
     IMatrix subMatrix(int row, int column, boolean liveView);
-
-    IMatrix nInvert();
 
     double[][] toArray();
 

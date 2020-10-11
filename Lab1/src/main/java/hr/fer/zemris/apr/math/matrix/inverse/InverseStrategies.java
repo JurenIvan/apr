@@ -1,7 +1,9 @@
 package hr.fer.zemris.apr.math.matrix.inverse;
 
+import hr.fer.zemris.apr.math.matrix.IMatrix;
 import hr.fer.zemris.apr.math.matrix.Matrix;
 import hr.fer.zemris.apr.math.matrix.decomposition.DecompositionStrategies;
+import hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategies;
 import hr.fer.zemris.apr.math.vector.Vector;
 
 import static hr.fer.zemris.apr.math.matrix.supstitutions.SubstitutionStrategies.BACKWARD;
@@ -28,6 +30,17 @@ public class InverseStrategies {
             }
         }
         return new Matrix(dim, dim, a, true);
+    };
+
+    public static final InverseStrategy SUBVIEW_INVERSE = matrix -> {
+        double determinant = 1 / matrix.determinant(DeterminantStrategies.SUBVIEW_DETERMINANT);
+        IMatrix transposed = matrix.nTranspose(false);
+        for (int i = 0; i < matrix.getRowsCount(); i++) {
+            for (int j = 0; j < matrix.getColsCount(); j++) {
+                transposed.set(i, j, Math.pow(-1, i + j) * determinant * matrix.subMatrix(i, j, true).determinant(DeterminantStrategies.SUBVIEW_DETERMINANT));
+            }
+        }
+        return transposed.nTranspose(true);
     };
 }
 

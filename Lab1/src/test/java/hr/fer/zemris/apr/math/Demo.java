@@ -2,6 +2,7 @@ package hr.fer.zemris.apr.math;
 
 import hr.fer.zemris.apr.math.matrix.IMatrix;
 import hr.fer.zemris.apr.math.matrix.Matrix;
+import hr.fer.zemris.apr.math.matrix.inverse.InverseStrategies;
 import hr.fer.zemris.apr.math.vector.IVector;
 import hr.fer.zemris.apr.math.vector.Vector;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ public class Demo {
 
         IMatrix m1 = Matrix.parseString("1 2 3 |2 1 3| 4 5 1").nAdd(Matrix.parseString("-1 2 -3 |5 -2 7|-4 -1 3"));
         IMatrix m2 = Matrix.parseString("1 2 3 |2 1 3| 4 5 1").nMultiply(Matrix.parseString("-1 2 -3 |5 -2 7|-4 -1 3").nTranspose(false));
-        IMatrix m3 = Matrix.parseString("-24 18 5 | 20 -15 -4 |-5 4 1").nInvert().nMultiply(Matrix.parseString("1 2 3 | 0 1 4 | 5 6 0").nInvert());
+        IMatrix m3 = Matrix.parseString("-24 18 5 | 20 -15 -4 |-5 4 1").inverse(InverseStrategies.SUBVIEW_INVERSE).nMultiply(Matrix.parseString("1 2 3 | 0 1 4 | 5 6 0").inverse(InverseStrategies.SUBVIEW_INVERSE));
 
         //   assertEquals(Matrix.parseString("0 4 0 |7 -1 10| 0 4 4"), m1);
         //   assertEquals(Matrix.parseString("-6 22  3  |-9 29  0  |3  17  -18"), m2);
