@@ -5,7 +5,7 @@ import hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategies;
 import hr.fer.zemris.apr.math.matrix.inverse.InverseStrategies;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MatrixTest {
 
@@ -251,5 +251,19 @@ public class MatrixTest {
         assertEquals(4, m1.get(0, 1));
         assertEquals(3, m1.get(1, 0));
         assertEquals(2, m1.get(1, 1));
+    }
+
+    @Test
+    void testEquals() {
+        Matrix m1 = Matrix.parseString("1.123456780 123");
+        Matrix m2 = Matrix.parseString("1.123456789 123");
+
+        assertTrue(m1.equals(m2, 7));
+        assertTrue(m1.equals(m2, 8));
+        assertFalse(m1.equals(m2, 9));
+
+        Matrix m3 = Matrix.parseString("1.12345000 123");
+
+        assertEquals(m1, m3);
     }
 }
