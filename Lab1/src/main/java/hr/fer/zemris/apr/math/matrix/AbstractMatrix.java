@@ -2,6 +2,7 @@ package hr.fer.zemris.apr.math.matrix;
 
 
 import hr.fer.zemris.apr.math.matrix.decomposition.DecomposeStrategy;
+import hr.fer.zemris.apr.math.matrix.inverse.InverseStrategy;
 import hr.fer.zemris.apr.math.vector.IVector;
 import hr.fer.zemris.apr.math.views.VectorMatrixView;
 
@@ -114,5 +115,10 @@ public abstract class AbstractMatrix implements IMatrix {
     @Override
     public <T> T nDecompose(DecomposeStrategy<T> strategy) {
         return strategy.decompose(this);
+    }
+
+    @Override
+    public IMatrix inverse(InverseStrategy strategy) {
+        return strategy.inverseOf(this);
     }
 }
