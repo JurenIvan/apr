@@ -216,4 +216,40 @@ public class MatrixTest {
         assertEquals(-1, v.get(0, 0), 1e-6);
         assertEquals(1, v.get(1, 0), 1e-6);
     }
+
+    @Test
+    void sub() {
+        var m1 = Matrix.parseString("5 4|3 2");
+        var m2 = Matrix.parseString("4 2|1 0");
+
+        var result = m1.sub(m2);
+
+        assertEquals(1, result.get(0, 0));
+        assertEquals(2, result.get(0, 1));
+        assertEquals(2, result.get(1, 0));
+        assertEquals(2, result.get(1, 1));
+
+        assertEquals(1, m1.get(0, 0));
+        assertEquals(2, m1.get(0, 1));
+        assertEquals(2, m1.get(1, 0));
+        assertEquals(2, m1.get(1, 1));
+    }
+
+    @Test
+    void nSub() {
+        var m1 = Matrix.parseString("5 4|3 2");
+        var m2 = Matrix.parseString("4 2|1 0");
+
+        var result = m1.nSub(m2);
+
+        assertEquals(1, result.get(0, 0));
+        assertEquals(2, result.get(0, 1));
+        assertEquals(2, result.get(1, 0));
+        assertEquals(2, result.get(1, 1));
+
+        assertEquals(5, m1.get(0, 0));
+        assertEquals(4, m1.get(0, 1));
+        assertEquals(3, m1.get(1, 0));
+        assertEquals(2, m1.get(1, 1));
+    }
 }
