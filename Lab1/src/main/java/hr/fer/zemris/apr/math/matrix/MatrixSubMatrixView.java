@@ -2,9 +2,9 @@ package hr.fer.zemris.apr.math.matrix;
 
 public class MatrixSubMatrixView extends AbstractMatrix {
 
-    private IMatrix matrix;
-    private int deletedColumn;
-    private int deletedRow;
+    private final IMatrix matrix;
+    private final int deletedColumn;
+    private final int deletedRow;
 
     public MatrixSubMatrixView(IMatrix matrix, int deletedColumn, int deletedRow) {
         this.matrix = matrix;

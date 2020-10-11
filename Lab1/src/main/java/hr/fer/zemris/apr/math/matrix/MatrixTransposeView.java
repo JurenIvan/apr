@@ -2,7 +2,7 @@ package hr.fer.zemris.apr.math.matrix;
 
 public class MatrixTransposeView extends AbstractMatrix {
 
-    private IMatrix matrix;
+    private final IMatrix matrix;
 
     public MatrixTransposeView(IMatrix matrix) {
         this.matrix = matrix;

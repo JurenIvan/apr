@@ -4,13 +4,27 @@ import hr.fer.zemris.apr.math.matrix.IMatrix;
 
 public class LUDecompositionResult {
 
-    private final IMatrix data;
+    protected final IMatrix data;
+    protected IMatrix lMatrix;
+    protected IMatrix uMatrix;
 
     public LUDecompositionResult(IMatrix data) {
         this.data = data;
     }
 
     public IMatrix getLMatrix() {
+        if (lMatrix == null)
+            lMatrix = calculateLMatrix();
+        return lMatrix;
+    }
+
+    public IMatrix getUMatrix() {
+        if (uMatrix == null)
+            uMatrix = calculateUMatrix();
+        return uMatrix;
+    }
+
+    private IMatrix calculateLMatrix() {
         var lMatrix = data.copy();
         int dimension = lMatrix.getColsCount();
         for (int i = 0; i < dimension; i++) {
@@ -24,7 +38,7 @@ public class LUDecompositionResult {
         return lMatrix;
     }
 
-    public IMatrix getUMatrix() {
+    private IMatrix calculateUMatrix() {
         var uMatrix = data.copy();
         int dimension = uMatrix.getColsCount();
         for (int i = 1; i < dimension; i++) {

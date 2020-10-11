@@ -70,4 +70,18 @@ public class VectorTest {
         Assertions.assertEquals(0.5, t3);
 
     }
+
+    @Test
+    void testToString() {
+        String out = Vector.parseSimple("1 2 3 4").toString();
+
+        assertEquals("Vector{elements=[1.000,2.000,3.000,4.000], readOnly=false}", out);
+    }
+
+    @Test
+    void testToStringWithPrecision() {
+        String out = Vector.parseSimple("1 2 3 4").toString(4);
+
+        assertEquals("Vector{elements=[1.0000,2.0000,3.0000,4.0000], readOnly=false}", out);
+    }
 }

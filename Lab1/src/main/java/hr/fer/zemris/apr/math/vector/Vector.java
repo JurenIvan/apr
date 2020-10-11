@@ -2,6 +2,8 @@ package hr.fer.zemris.apr.math.vector;
 
 import java.util.Arrays;
 
+import static java.util.stream.Collectors.joining;
+
 public class Vector extends AbstractVector {
 
     private double[] elements;
@@ -68,11 +70,7 @@ public class Vector extends AbstractVector {
     public String toString(int precision) {
         String numberFormat = "%." + precision + "f";
         StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append("[");
-        for (var element : this.elements)
-            stringBuilder.append(String.format(numberFormat, element)).append(',');
-        stringBuilder.append("]");
+        stringBuilder.append(Arrays.stream(this.elements).mapToObj(e -> String.format(numberFormat, e)).collect(joining(",", "[", "]")));
         return String.format("Vector{elements=%s, readOnly=%s}", stringBuilder.toString(), readOnly);
     }
 
