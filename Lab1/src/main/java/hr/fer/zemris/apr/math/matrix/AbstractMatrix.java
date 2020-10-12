@@ -4,7 +4,7 @@ package hr.fer.zemris.apr.math.matrix;
 import hr.fer.zemris.apr.math.matrix.decomposition.DecomposeStrategy;
 import hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategy;
 import hr.fer.zemris.apr.math.matrix.inverse.InverseStrategy;
-import hr.fer.zemris.apr.math.matrix.solver.EquasionSolver;
+import hr.fer.zemris.apr.math.matrix.solver.EquationSolver;
 import hr.fer.zemris.apr.math.vector.IVector;
 import hr.fer.zemris.apr.math.views.VectorMatrixView;
 
@@ -103,7 +103,7 @@ public abstract class AbstractMatrix implements IMatrix {
     }
 
     @Override
-    public IVector solveSystem(EquasionSolver solver, IVector right) {
+    public IVector solveSystem(EquationSolver solver, IVector right) {
         return solver.solve(this, right);
     }
 }

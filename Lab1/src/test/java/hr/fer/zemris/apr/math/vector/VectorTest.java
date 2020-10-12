@@ -63,7 +63,7 @@ public class VectorTest {
         double t2 = povB / pov;
         double t3 = povC / pov;
 
-        System.out.println(" Baricentricne koordinate su : (" + t1 + "," + t2 + "," + t3 + "). ");
+//        System.out.println(" Baricentricne koordinate su : (" + t1 + "," + t2 + "," + t3 + "). ");
 
         Assertions.assertEquals(0.25, t1);
         Assertions.assertEquals(0.25, t2);

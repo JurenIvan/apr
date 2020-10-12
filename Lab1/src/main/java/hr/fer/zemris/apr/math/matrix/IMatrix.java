@@ -3,7 +3,7 @@ package hr.fer.zemris.apr.math.matrix;
 import hr.fer.zemris.apr.math.matrix.decomposition.DecomposeStrategy;
 import hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategy;
 import hr.fer.zemris.apr.math.matrix.inverse.InverseStrategy;
-import hr.fer.zemris.apr.math.matrix.solver.EquasionSolver;
+import hr.fer.zemris.apr.math.matrix.solver.EquationSolver;
 import hr.fer.zemris.apr.math.vector.IVector;
 
 public interface IMatrix {
@@ -44,5 +44,5 @@ public interface IMatrix {
 
     double determinant(DeterminantStrategy strategy);
 
-    IVector solveSystem(EquasionSolver solver, IVector right);
+    IVector solveSystem(EquationSolver solver, IVector right);
 }

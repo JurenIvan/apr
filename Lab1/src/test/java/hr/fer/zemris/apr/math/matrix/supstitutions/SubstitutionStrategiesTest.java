@@ -23,7 +23,6 @@ class SubstitutionStrategiesTest {
         var v = Vector.parseSimple("8 1 -1.8");
 
         var x = SubstitutionStrategies.BACKWARD.substitute(m, v);
-
         assertEquals(Vector.parseSimple("1 0 1"), x);
     }
 

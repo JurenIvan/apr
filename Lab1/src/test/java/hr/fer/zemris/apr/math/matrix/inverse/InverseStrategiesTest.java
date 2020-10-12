@@ -3,13 +3,15 @@ package hr.fer.zemris.apr.math.matrix.inverse;
 import hr.fer.zemris.apr.math.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
+import static hr.fer.zemris.apr.math.matrix.inverse.InverseStrategies.LUP_DECOMPOSITION_INVERSE;
+import static hr.fer.zemris.apr.math.matrix.inverse.InverseStrategies.SUBVIEW_INVERSE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InverseStrategiesTest {
 
     @Test
     public void testLUPDecompositinInverse() {
-        var inverse = Matrix.parseString("25 5 1 | 64 8 1 | 144 12 1").inverse(InverseStrategies.LUP_DECOMPOSITION_INVERSE);
+        var inverse = Matrix.parseString("25 5 1 | 64 8 1 | 144 12 1").inverse(LUP_DECOMPOSITION_INVERSE);
 
         assertEquals(0.047619047619047616, inverse.get(0, 0), 1e-7);
         assertEquals(-0.08333333333333333, inverse.get(0, 1), 1e-7);
@@ -26,7 +28,7 @@ class InverseStrategiesTest {
 
     @Test
     public void testSubViewInverse() {
-        var inverse = Matrix.parseString("25 5 1 | 64 8 1 | 144 12 1").inverse(InverseStrategies.SUBVIEW_INVERSE);
+        var inverse = Matrix.parseString("25 5 1 | 64 8 1 | 144 12 1").inverse(SUBVIEW_INVERSE);
 
         assertEquals(0.047619047619047616, inverse.get(0, 0), 1e-7);
         assertEquals(-0.08333333333333333, inverse.get(0, 1), 1e-7);
@@ -40,5 +42,4 @@ class InverseStrategiesTest {
         assertEquals(-5.000000000000001, inverse.get(2, 1), 1e-7);
         assertEquals(1.4285714285714288, inverse.get(2, 2), 1e-7);
     }
-
 }

@@ -16,7 +16,7 @@ class DecompositionStrategiesTest {
 
         var result = m.nDecompose(LU_DECOMPOSITION);
 
-        assertEquals(decomposed.toString(), result.getLUMatrix().toString());
+        assertEquals(decomposed, result.getLUMatrix());
     }
 
     @Test
@@ -26,7 +26,7 @@ class DecompositionStrategiesTest {
 
         var result = m.nDecompose(LUP_DECOMPOSITION);
 
-        assertEquals(decomposed.toString(), result.getLUMatrix().toString());
+        assertEquals(decomposed, result.getLUMatrix());
     }
 
     @Test
@@ -36,5 +36,4 @@ class DecompositionStrategiesTest {
         assertEquals(Matrix.parseString("6 2 10 | 0 4 2 | 0.33333 0.58333 -4.5"), result.getLUMatrix());
         assertEquals(Matrix.parseString("6 2 10 | 0 4 2 | 0.33333 0.58333 -4.5"), result.getLUMatrix());
     }
-
 }

@@ -13,7 +13,7 @@ class LUDecompositionResultTest {
         var lowerMatrix = Matrix.parseString("1 0 0 | 4 1 0 | 7 8 1");
         var lowerMatrixFromDecomposedMatrix = new LUDecompositionResult(matrix).getLMatrix();
 
-        assertEquals(lowerMatrix.toString(), lowerMatrixFromDecomposedMatrix.toString());
+        assertEquals(lowerMatrix, lowerMatrixFromDecomposedMatrix);
     }
 
     @Test
@@ -21,13 +21,13 @@ class LUDecompositionResultTest {
         var matrix = Matrix.parseString("1 2 3 | 4 5 6 | 7 8 9");
         var upperMatrix = Matrix.parseString("1 2 3 | 0 5 6 | 0 0 9");
 
-        assertEquals(upperMatrix.toString(), new LUDecompositionResult(matrix).getUMatrix().toString());
+        assertEquals(upperMatrix, new LUDecompositionResult(matrix).getUMatrix());
     }
 
     @Test
     void getLUMatrix() {
         var matrix = Matrix.parseString("1 2 3 | 4 5 6 | 7 8 9");
 
-        assertEquals(matrix.toString(), new LUDecompositionResult(matrix).getLUMatrix().toString());
+        assertEquals(matrix, new LUDecompositionResult(matrix).getLUMatrix());
     }
 }

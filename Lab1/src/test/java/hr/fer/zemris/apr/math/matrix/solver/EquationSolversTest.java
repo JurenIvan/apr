@@ -8,7 +8,7 @@ import static hr.fer.zemris.apr.math.matrix.solver.EquasionSolvers.LUP_EQUATION_
 import static hr.fer.zemris.apr.math.matrix.solver.EquasionSolvers.LU_EQUATION_SOLVER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EquasionSolversTest {
+class EquationSolversTest {
 
     @Test
     public void LUPEquationSolver() {

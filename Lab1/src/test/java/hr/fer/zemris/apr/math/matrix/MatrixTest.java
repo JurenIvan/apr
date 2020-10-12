@@ -1,10 +1,10 @@
 package hr.fer.zemris.apr.math.matrix;
 
 
-import hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategies;
-import hr.fer.zemris.apr.math.matrix.inverse.InverseStrategies;
 import org.junit.jupiter.api.Test;
 
+import static hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategies.SUBVIEW_DETERMINANT;
+import static hr.fer.zemris.apr.math.matrix.inverse.InverseStrategies.SUBVIEW_INVERSE;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MatrixTest {
@@ -155,18 +155,18 @@ public class MatrixTest {
     @Test
     public void determinant() {
         IMatrix m1 = Matrix.parseString("10 21 4 | 81 1 2|-2      7 4");
-        assertEquals(-4712, m1.determinant(DeterminantStrategies.SUBVIEW_DETERMINANT));
+        assertEquals(-4712, m1.determinant(SUBVIEW_DETERMINANT));
     }
 
     @Test
     public void determinant2() {
         IMatrix m1 = Matrix.parseString("1 2 | 7 4");
-        assertEquals(-10, m1.determinant(DeterminantStrategies.SUBVIEW_DETERMINANT));
+        assertEquals(-10, m1.determinant(SUBVIEW_DETERMINANT));
     }
 
     @Test
     public void inverse() {
-        IMatrix matrix1 = Matrix.parseString("4 7 | 2 6 ").inverse(InverseStrategies.SUBVIEW_INVERSE);
+        IMatrix matrix1 = Matrix.parseString("4 7 | 2 6 ").inverse(SUBVIEW_INVERSE);
 
         assertEquals(0.6, matrix1.get(0, 0), 1e-6);
         assertEquals(-0.7, matrix1.get(0, 1), 1e-6);
@@ -176,7 +176,7 @@ public class MatrixTest {
 
     @Test
     public void inverse2() {
-        IMatrix matrix = Matrix.parseString("1 2 3 |0 1 4|5 6 0").inverse(InverseStrategies.SUBVIEW_INVERSE);
+        IMatrix matrix = Matrix.parseString("1 2 3 |0 1 4|5 6 0").inverse(SUBVIEW_INVERSE);
 
         assertEquals(-24, matrix.get(0, 0), 1e-6);
         assertEquals(18, matrix.get(0, 1), 1e-6);
@@ -211,7 +211,7 @@ public class MatrixTest {
     public void calc() {
         IMatrix a = Matrix.parseString("3 5 | 2 10");
         IMatrix r = Matrix.parseString("2 | 8");
-        IMatrix v = a.inverse(InverseStrategies.SUBVIEW_INVERSE).nMultiply(r);
+        IMatrix v = a.inverse(SUBVIEW_INVERSE).nMultiply(r);
 
         assertEquals(-1, v.get(0, 0), 1e-6);
         assertEquals(1, v.get(1, 0), 1e-6);

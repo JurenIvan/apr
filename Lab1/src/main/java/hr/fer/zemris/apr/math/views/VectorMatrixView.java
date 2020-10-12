@@ -8,8 +8,8 @@ import hr.fer.zemris.apr.math.vector.Vector;
 
 public class VectorMatrixView extends AbstractVector {
 
-    private IMatrix matrix;
-    private boolean rowMatrix;
+    private final IMatrix matrix;
+    private final boolean rowMatrix;
 
     public VectorMatrixView(IMatrix matrix) {
         this.matrix = matrix;
