@@ -7,6 +7,8 @@ import static java.lang.Double.MIN_VALUE;
 
 public class DecompositionStrategies {
 
+    private static final double e = 1e-10;
+
     public static final DecomposeStrategy<LUDecompositionResult> LU_DECOMPOSITION = (originalMatrix) -> {
         IMatrix matrixCopy = originalMatrix.copy();
         int colsCount = originalMatrix.getColsCount();

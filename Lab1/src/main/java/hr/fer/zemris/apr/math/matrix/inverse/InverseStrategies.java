@@ -2,10 +2,10 @@ package hr.fer.zemris.apr.math.matrix.inverse;
 
 import hr.fer.zemris.apr.math.matrix.IMatrix;
 import hr.fer.zemris.apr.math.matrix.Matrix;
-import hr.fer.zemris.apr.math.matrix.decomposition.DecompositionStrategies;
-import hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategies;
 import hr.fer.zemris.apr.math.vector.Vector;
 
+import static hr.fer.zemris.apr.math.matrix.decomposition.DecompositionStrategies.LUP_DECOMPOSITION;
+import static hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategies.SUBVIEW_DETERMINANT;
 import static hr.fer.zemris.apr.math.matrix.supstitutions.SubstitutionStrategies.BACKWARD;
 import static hr.fer.zemris.apr.math.matrix.supstitutions.SubstitutionStrategies.FORWARD;
 
@@ -16,7 +16,7 @@ public class InverseStrategies {
 
         var dim = matrix.getColsCount();
         var a = new double[dim][dim];
-        var lupDecompositionResult = matrix.nDecompose(DecompositionStrategies.LUP_DECOMPOSITION);
+        var lupDecompositionResult = matrix.nDecompose(LUP_DECOMPOSITION);
         var LPMatrix = lupDecompositionResult.getLMatrix();
         var UPMatrix = lupDecompositionResult.getUMatrix();
         var transposed = lupDecompositionResult.getPMatrix().nTranspose(false).toArray();
@@ -33,11 +33,11 @@ public class InverseStrategies {
     };
 
     public static final InverseStrategy SUBVIEW_INVERSE = matrix -> {
-        double determinant = 1 / matrix.determinant(DeterminantStrategies.SUBVIEW_DETERMINANT);
+        double determinant = 1 / matrix.determinant(SUBVIEW_DETERMINANT);
         IMatrix transposed = matrix.nTranspose(false);
         for (int i = 0; i < matrix.getRowsCount(); i++) {
             for (int j = 0; j < matrix.getColsCount(); j++) {
-                transposed.set(i, j, Math.pow(-1, i + j) * determinant * matrix.subMatrix(i, j, true).determinant(DeterminantStrategies.SUBVIEW_DETERMINANT));
+                transposed.set(i, j, Math.pow(-1, i + j) * determinant * matrix.subMatrix(i, j, true).determinant(SUBVIEW_DETERMINANT));
             }
         }
         return transposed.nTranspose(true);

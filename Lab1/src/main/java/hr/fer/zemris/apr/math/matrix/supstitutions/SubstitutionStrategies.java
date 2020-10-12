@@ -25,6 +25,7 @@ public class SubstitutionStrategies {
             for (int j = dim - 1; j > i; j--) {
                 x[i] -= upperMatrix.get(i, j) * x[j];
             }
+            if (Math.abs(upperMatrix.get(i, i)) < 1e-10) throw new IllegalStateException();
             x[i] /= upperMatrix.get(i, i);
         }
 

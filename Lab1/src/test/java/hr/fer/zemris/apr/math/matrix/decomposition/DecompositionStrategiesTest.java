@@ -29,24 +29,12 @@ class DecompositionStrategiesTest {
         assertEquals(decomposed.toString(), result.getLUMatrix().toString());
     }
 
-//    @Test
-//    public void LU_DECOMPOSITION_4rows() {
-//        var m = Matrix.parseString("4 10 5 -9 | -4 6 6 3 | -8 4 2 6 | -4 8 1 -3");
-//        var decomposed = Matrix.parseString("8 4 2 6 | -0.5 12 6 -6 | 0.5 0.3333333333 3 2 | 0.5 0.5 -1 -1");
-//
-//        var result = m.nDecompose(LU_DECOMPOSITION);
-//
-//        assertEquals(decomposed.toString(), result.getLUMatrix().toString());
-//    }
-
     @Test
     public void LUP_DECOMPOSITION_3rows() {
-//        var m = Matrix.parseString("6 2 10 | 2 3 0 | 0 4 2");
-//        var decomposed = Matrix.parseString("6 2 10 | 2 3 0 | 0 4 2");
-//
-//        var result = m.nDecompose(LUP_DECOMPOSITION);
-//
-//        assertEquals(decomposed.toString(), result.getLUMatrix().toString());
+        var result = Matrix.parseString("6 2 10 | 2 3 0 | 0 4 2").nDecompose(LUP_DECOMPOSITION);
+
+        assertEquals(Matrix.parseString("6 2 10 | 0 4 2 | 0.33333 0.58333 -4.5"), result.getLUMatrix());
+        assertEquals(Matrix.parseString("6 2 10 | 0 4 2 | 0.33333 0.58333 -4.5"), result.getLUMatrix());
     }
 
 }

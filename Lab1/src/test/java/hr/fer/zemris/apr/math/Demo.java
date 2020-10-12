@@ -1,8 +1,8 @@
 package hr.fer.zemris.apr.math;
 
 import hr.fer.zemris.apr.math.matrix.Matrix;
+import hr.fer.zemris.apr.math.matrix.decomposition.DecompositionStrategies;
 import hr.fer.zemris.apr.math.vector.Vector;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static hr.fer.zemris.apr.math.matrix.determinant.DeterminantStrategies.TRIANGULAR_MATRICES;
@@ -18,41 +18,46 @@ public class Demo {
         var matrix = Matrix.parseString("5 2.22");
 
         assertNotEquals("1.6666666666666666", String.valueOf(matrix.get(0, 0) / 3).substring(0, 18));
+        assertEquals(5.0 / 3, matrix.get(0, 0) / 3, 1e-10);
     }
 
     @Test
-    @Disabled
     public void zadatak02() {
-        var matrix = Matrix.parseString("3 9 6 | 4 12 12 | 1 -1 -1");
+        var matrix = Matrix.parseString("3 9 6 | 4 12 12 | 1 -1 1");
         var right = Vector.parseSimple("12 12 1");
 
         var expectedSolution = Vector.parseSimple("3 1 -1");
         assertEquals(expectedSolution, matrix.solveSystem(LUP_EQUATION_SOLVER, right));
-        assertEquals(expectedSolution, matrix.solveSystem(LU_EQUATION_SOLVER, right));
+        assertThrows(IllegalStateException.class, () -> matrix.solveSystem(LU_EQUATION_SOLVER, right));
     }
 
     @Test
-    @Disabled
     public void zadatak03() {
         var matrix = Matrix.parseString("1 2 3 | 4 5 6 | 7 8 9");
+
+        var luDecomposed = matrix.nDecompose(DecompositionStrategies.LU_DECOMPOSITION);
+        assertEquals(Matrix.parseString("1 2 3 | 4 -3 -6 | 7 2 0"), luDecomposed.getLUMatrix());
+
+        var lupDecomposed = matrix.nDecompose(DecompositionStrategies.LUP_DECOMPOSITION);
+        assertEquals(Matrix.parseString("7 8 9| 0.142857 0.857142 1.7142857 | 0.571428 0.5 0"), lupDecomposed.getLUMatrix());
+
         var right = Vector.parseSimple("8 20 32");
-
-
         var expectedSolution = Vector.parseSimple("1 2 1");
-        assertEquals(expectedSolution, matrix.solveSystem(LUP_EQUATION_SOLVER, right));
-        assertEquals(expectedSolution, matrix.solveSystem(LU_EQUATION_SOLVER, right));
+
+        assertThrows(IllegalStateException.class, () -> matrix.solveSystem(LUP_EQUATION_SOLVER, right));
+        assertThrows(IllegalStateException.class, () -> matrix.solveSystem(LU_EQUATION_SOLVER, right));
     }
 
     @Test
-    @Disabled
     public void zadatak04() {
         var matrix = Matrix.parseString("0.000001 3000000 2000000|1000000 2000000 3000000|2000000 1000000 2000000");
         var right = Vector.parseSimple("12000000.000001 14000000 10000000");
 
 
-        var expectedSolution = Vector.parseSimple("1 2 3");
-        assertEquals(expectedSolution, matrix.solveSystem(LUP_EQUATION_SOLVER, right));
-        assertEquals(expectedSolution, matrix.solveSystem(LU_EQUATION_SOLVER, right));
+        var expectedLUPSolution = Vector.parseSimple("1 2 3");
+        assertEquals(expectedLUPSolution, matrix.solveSystem(LUP_EQUATION_SOLVER, right));
+        var expectedLUSolution = Vector.parseSimple("1.00024044 1.9993176 3.0010235");
+        assertEquals(expectedLUSolution, matrix.solveSystem(LU_EQUATION_SOLVER, right));
     }
 
     @Test
@@ -70,11 +75,10 @@ public class Demo {
     }
 
     @Test
-    @Disabled
     public void zadatak07() {
         var matrix = Matrix.parseString("1 2 3|4 5 6|7 8 9");
 
-        assertThrows(Exception.class, () -> matrix.inverse(LUP_DECOMPOSITION_INVERSE));
+        assertThrows(IllegalStateException.class, () -> matrix.inverse(LUP_DECOMPOSITION_INVERSE));
     }
 
     @Test
