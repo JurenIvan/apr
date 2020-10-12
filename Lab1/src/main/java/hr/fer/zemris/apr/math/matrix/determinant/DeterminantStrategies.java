@@ -5,7 +5,7 @@ import hr.fer.zemris.apr.math.matrix.decomposition.DecompositionStrategies;
 
 public class DeterminantStrategies {
 
-    public static DeterminantStrategy TRIANGULAR_MATRICES = matrix -> {
+    public static final DeterminantStrategy TRIANGULAR_MATRICES = matrix -> {
         var decompositionResult = matrix.nDecompose(DecompositionStrategies.LUP_DECOMPOSITION);
         var dim = decompositionResult.getLMatrix().getColsCount();
         var product = 1.0;
@@ -20,7 +20,7 @@ public class DeterminantStrategies {
         return product * (displacements % 2 == 1 ? 1 : -1);
     };
 
-    public static DeterminantStrategy SUBVIEW_DETERMINANT = new DeterminantStrategy() {
+    public static final DeterminantStrategy SUBVIEW_DETERMINANT = new DeterminantStrategy() {
         @Override
         public double calculateDeterminant(IMatrix matrix) {
             if (matrix.getColsCount() == 1)

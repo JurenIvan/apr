@@ -4,7 +4,7 @@ import hr.fer.zemris.apr.math.vector.Vector;
 
 public class SubstitutionStrategies {
 
-    public static SubstituteStrategy FORWARD = (lowerMatrix, b) -> {
+    public static final SubstituteStrategy FORWARD = (lowerMatrix, b) -> {
         int dim = lowerMatrix.getColsCount();
         double[] y = new double[dim];
         for (int i = 0; i < dim; i++) {
@@ -17,7 +17,7 @@ public class SubstitutionStrategies {
         return new Vector(y);
     };
 
-    public static SubstituteStrategy BACKWARD = (upperMatrix, y) -> {
+    public static final SubstituteStrategy BACKWARD = (upperMatrix, y) -> {
         int dim = upperMatrix.getColsCount();
         double[] x = new double[dim];
         for (int i = dim - 1; i >= 0; i--) {

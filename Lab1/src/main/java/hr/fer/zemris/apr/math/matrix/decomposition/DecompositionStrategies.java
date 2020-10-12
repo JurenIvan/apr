@@ -7,7 +7,7 @@ import static java.lang.Double.MIN_VALUE;
 
 public class DecompositionStrategies {
 
-    public static DecomposeStrategy<LUDecompositionResult> LU_DECOMPOSITION = (originalMatrix) -> {
+    public static final DecomposeStrategy<LUDecompositionResult> LU_DECOMPOSITION = (originalMatrix) -> {
         IMatrix matrixCopy = originalMatrix.copy();
         int colsCount = originalMatrix.getColsCount();
 
@@ -22,7 +22,7 @@ public class DecompositionStrategies {
         return new LUDecompositionResult(matrixCopy);
     };
 
-    public static DecomposeStrategy<LUPDecompositionResult> LUP_DECOMPOSITION = (originalMatrix) -> {
+    public static final DecomposeStrategy<LUPDecompositionResult> LUP_DECOMPOSITION = (originalMatrix) -> {
         double e = 1e-4;
         double[][] a = originalMatrix.toArray();
         int colsCount = originalMatrix.getColsCount();
