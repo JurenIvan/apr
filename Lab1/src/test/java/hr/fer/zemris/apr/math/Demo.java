@@ -62,7 +62,13 @@ public class Demo {
 
     @Test
     public void zadatak05() {
+        var matrix = Matrix.parseString("0 1 2 | 2 0 3 | 3 5 1");
+        var right = Vector.parseSimple("6 9 3");
 
+        var expectedLUPSolution = Vector.parseSimple("0 0 3");
+        assertEquals(expectedLUPSolution, matrix.solveSystem(LUP_EQUATION_SOLVER, right));
+
+        assertThrows(IllegalStateException.class, () -> matrix.solveSystem(LU_EQUATION_SOLVER, right));
     }
 
     @Test
