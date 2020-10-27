@@ -1,11 +1,15 @@
 package hr.fer.zemris.apr.optimisations.function;
 
-public class AprFunction implements DoubleFunction {
+import hr.fer.zemris.apr.math.vector.IVector;
 
-    private final DoubleFunction function;
+import java.util.function.Function;
+
+public class AprFunction implements Function<IVector, IVector> {
+
+    private final Function<IVector, IVector> function;
     private int counter = 0;
 
-    public AprFunction(DoubleFunction function) {
+    public AprFunction(Function<IVector, IVector> function) {
         this.function = function;
     }
 
@@ -13,7 +17,7 @@ public class AprFunction implements DoubleFunction {
         return counter;
     }
 
-    public double apply(double in) {
+    public IVector apply(IVector in) {
         counter++;
         return function.apply(in);
     }

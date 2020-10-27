@@ -24,6 +24,30 @@ public class Vector extends AbstractVector {
         this.readOnly = readOnly;
     }
 
+    public static Vector unit(int dimension, double value) {
+        var elements = new double[dimension];
+        var vector = new Vector(elements, false, true);
+        for (int i = 0; i < dimension; i++) {
+            vector.set(i, value);
+        }
+        return vector;
+    }
+
+    public static Vector unit(int dimension) {
+        return Vector.unit(dimension, 1.0);
+    }
+
+    public static Vector e(int dimension, int atIndex) {
+        return Vector.e(dimension, atIndex, 1);
+    }
+
+    public static Vector e(int dimension, int atIndex, double value) {
+        var elements = new double[dimension];
+        var vector = new Vector(elements, false, true);
+        vector.set(atIndex, value);
+        return vector;
+    }
+
     public static Vector parseSimple(String line) {
         double[] elements = Arrays.stream(line.trim().split("\\s+")).mapToDouble(Double::parseDouble).toArray();
         return new Vector(elements, false, true);
