@@ -5,9 +5,11 @@ import hr.fer.zemris.apr.math.vector.Vector;
 
 import java.util.function.Function;
 
+import static java.lang.Math.sqrt;
+
 public class GoldenCut {
 
-    private static final double GOLDEN_RATIO = 0.5 * (Math.sqrt(5) - 1);
+    private static final double GOLDEN_RATIO = 0.5 * (sqrt(5) - 1);
 
     public static Pair<IVector> given(Function<IVector, Double> f, Pair<IVector> borders, double e, int index) {
         int n = borders.getFirst().getDimension();
