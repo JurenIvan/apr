@@ -37,35 +37,8 @@ public class GoldenCut {
         return new Pair<>(a, b);
     }
 
-//    } public static Pair<IVector> given(Function<IVector, Double> f, Pair<IVector> borders, double e, int index) {
-//        int n=borders.getFirst().getDimension();
-//        IVector a = borders.getFirst();
-//        IVector b = borders.getSecond();
-//        IVector c = b.nSub(b.nSub(a).nScalarMultiply(GOLDEN_RATIO));
-//        IVector d = a.nAdd(b.nSub(a).nScalarMultiply(GOLDEN_RATIO));
-//        double fc, fd;
-//        double va = a.get(index);
-//        double vb = b.get(index);
-//        double vc = c.get(index);
-//        double vd = d.get(index);
-//
-//        fc = f.apply(c);
-//        fd = f.apply(d);
-//        while (vb - va > e) {
-//            if (fc < fd) {
-//                b = d; vb=vd;
-//                d = c; vd=vc;
-//                c = b.nSub(Vector.e(n,index, GOLDEN_RATIO * (vb-va))); vc=vb-GOLDEN_RATIO*(vb-va);
-//                fd = fc;
-//                fc = f.apply(c);
-//            } else {
-//                a = c; va=vc;
-//                c = d; vc=vd;
-//                d = a.nAdd(Vector.e(n,index, GOLDEN_RATIO * (vb-va))); vd=va+GOLDEN_RATIO*(vb-va);
-//                fc = fd;
-//                fd = f.apply(d);
-//            }
-//        }
-//        return new Pair<>(a, b);
-//    }
+    public static IVector avg(Function<IVector, Double> f, Pair<IVector> borders, double e, int index) {
+        var r = GoldenCut.given(f, borders, e, index);
+        return r.getSecond().add(r.getFirst()).scalarMultiply(0.5);
+    }
 }

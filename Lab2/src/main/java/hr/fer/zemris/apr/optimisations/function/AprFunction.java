@@ -4,12 +4,12 @@ import hr.fer.zemris.apr.math.vector.IVector;
 
 import java.util.function.Function;
 
-public class AprFunction implements Function<IVector, IVector> {
+public class AprFunction implements Function<IVector, Double> {
 
-    private final Function<IVector, IVector> function;
+    private final Function<IVector, Double> function;
     private int counter = 0;
 
-    public AprFunction(Function<IVector, IVector> function) {
+    public AprFunction(Function<IVector, Double> function) {
         this.function = function;
     }
 
@@ -17,7 +17,7 @@ public class AprFunction implements Function<IVector, IVector> {
         return counter;
     }
 
-    public IVector apply(IVector in) {
+    public Double apply(IVector in) {
         counter++;
         return function.apply(in);
     }

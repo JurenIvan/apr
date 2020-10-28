@@ -7,15 +7,10 @@ import java.util.function.Function;
 
 public class UniModalInterval {
 
-    /**
-     * @param function   funcika
-     * @param h          -step
-     * @param startValue -startpoint
-     */
-    public static Pair<IVector> of(Function<IVector, Double> function, double h, IVector startValue, int index) {
+    public static Pair<IVector> of(Function<IVector, Double> function, double initialStep, IVector startValue, int index) {
         int n = startValue.getDimension();
-        IVector left = startValue.nSub(Vector.e(n, index, h));
-        IVector right = startValue.nAdd(Vector.e(n, index, h));
+        IVector left = startValue.nSub(Vector.e(n, index, initialStep));
+        IVector right = startValue.nAdd(Vector.e(n, index, initialStep));
         IVector m = startValue;
         double fl, fm, fr;
         long step = 1;
@@ -32,7 +27,7 @@ public class UniModalInterval {
                 left = m;
                 m = right;
                 fm = fr;
-                right = startValue.nAdd(Vector.e(n, index, h * (step *= 2)));
+                right = startValue.nAdd(Vector.e(n, index, initialStep * (step *= 2)));
                 fr = function.apply(right);
             } while (fm > fr);
         } else {
@@ -40,7 +35,7 @@ public class UniModalInterval {
                 right = m;
                 m = left;
                 fm = fl;
-                left = startValue.nSub(Vector.e(n, index, h * (step *= 2)));
+                left = startValue.nSub(Vector.e(n, index, initialStep * (step *= 2)));
                 fl = function.apply(left);
             } while (fm > fl);
         }
