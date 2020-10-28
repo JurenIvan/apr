@@ -2,12 +2,13 @@ package hr.fer.zemris.apr.optimisations;
 
 import hr.fer.zemris.apr.math.vector.IVector;
 import hr.fer.zemris.apr.math.vector.Vector;
+import hr.fer.zemris.apr.optimisations.domain.Pair;
 
 import java.util.function.Function;
 
 public class UniModalInterval {
 
-    public static Pair<IVector> of(Function<IVector, Double> function, double initialStep, IVector startValue, int index) {
+    public static Pair<IVector, IVector> of(Function<IVector, Double> function, double initialStep, IVector startValue, int index) {
         int n = startValue.getDimension();
         IVector left = startValue.nSub(Vector.e(n, index, initialStep));
         IVector right = startValue.nAdd(Vector.e(n, index, initialStep));
