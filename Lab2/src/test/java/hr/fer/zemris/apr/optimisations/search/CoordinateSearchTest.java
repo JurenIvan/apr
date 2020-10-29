@@ -10,7 +10,7 @@ import static java.lang.Math.pow;
 class CoordinateSearchTest {
 
     @Test
-    void of() {
+    void coordinateSearchTest1() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
         var coordinateSearch = new CoordinateSearch(aprFunction3);
@@ -20,7 +20,7 @@ class CoordinateSearchTest {
     }
 
     @Test
-    void of_1() {
+    void coordinateSearchTest2() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
         var coordinateSearch = new CoordinateSearch(aprFunction3);
@@ -30,7 +30,7 @@ class CoordinateSearchTest {
     }
 
     @Test
-    void of_3() {
+    void coordinateSearchTest3() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
         var coordinateSearch = new CoordinateSearch(aprFunction3);

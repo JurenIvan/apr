@@ -17,6 +17,7 @@ public class AprFunction implements Function<IVector, Double> {
         return counter;
     }
 
+    @Override
     public Double apply(IVector in) {
         counter++;
         return function.apply(in);

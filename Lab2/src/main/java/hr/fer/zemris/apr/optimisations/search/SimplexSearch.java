@@ -10,24 +10,26 @@ import java.util.function.Function;
 
 import static java.lang.Double.MAX_VALUE;
 
-public class SimplexSearch {
+public class SimplexSearch implements SearchAlgorithm {
 
     private final double alfa;
     private final double beta;
     private final double gamma;
     private final double sigma;
+    private final double simplexGeneratingStep;
     private final Function<IVector, Double> function;
 
-    public SimplexSearch(Function<IVector, Double> function, double alfa, double beta, double gamma, double sigma) {
+    public SimplexSearch(Function<IVector, Double> function, double alfa, double beta, double gamma, double sigma, double simplexGeneratingStep) {
         this.alfa = alfa;
         this.beta = beta;
         this.gamma = gamma;
         this.sigma = sigma;
         this.function = function;
+        this.simplexGeneratingStep = simplexGeneratingStep;
     }
 
     public SimplexSearch(Function<IVector, Double> function) {
-        this(function, 1, 0.5, 2, 0.5);
+        this(function, 1, 0.5, 2, 0.5, 1);
     }
 
     public IVector search(IVector x0, double eps) {
@@ -148,7 +150,7 @@ public class SimplexSearch {
         double valueMin = valueAtX0, valueMax = valueAtX0;
         evaluated.add(new Pair<>(x0, valueAtX0));
         for (int i = 1; i <= n; i++) {
-            var newPoint = x0.nAdd(Vector.e(n, i - 1));
+            var newPoint = x0.nAdd(Vector.e(n, i - 1, simplexGeneratingStep));
             var valueAtPoint = function.apply(newPoint);
             if (valueAtPoint > valueMax) {
                 valueMax = valueAtPoint;

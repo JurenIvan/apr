@@ -16,6 +16,10 @@ public class HookeJeevesSearch implements SearchAlgorithm {
         this.dx = dx;
     }
 
+    public HookeJeevesSearch(Function<IVector, Double> function) {
+        this(function, 1);
+    }
+
     public IVector search(IVector x0, double eps) {
         double dx = this.dx;
         IVector xp = x0.copy();
