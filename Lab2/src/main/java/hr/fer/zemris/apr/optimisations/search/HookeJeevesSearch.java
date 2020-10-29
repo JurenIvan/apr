@@ -1,4 +1,4 @@
-package hr.fer.zemris.apr.optimisations;
+package hr.fer.zemris.apr.optimisations.search;
 
 import hr.fer.zemris.apr.math.vector.IVector;
 import hr.fer.zemris.apr.math.vector.Vector;
@@ -6,15 +6,18 @@ import hr.fer.zemris.apr.optimisations.domain.Pair;
 
 import java.util.function.Function;
 
-public class HookeJeevesSearch {
+public class HookeJeevesSearch implements SearchAlgorithm {
 
     private final Function<IVector, Double> function;
+    private double dx;
 
-    public HookeJeevesSearch(Function<IVector, Double> function) {
+    public HookeJeevesSearch(Function<IVector, Double> function, double dx) {
         this.function = function;
+        this.dx = dx;
     }
 
-    public IVector of(IVector x0, double dx, double eps) {
+    public IVector search(IVector x0, double eps) {
+        double dx = this.dx;
         IVector xp = x0.copy();
         IVector xb = x0.copy();
 

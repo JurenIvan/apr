@@ -1,4 +1,4 @@
-package hr.fer.zemris.apr.optimisations;
+package hr.fer.zemris.apr.optimisations.search;
 
 import hr.fer.zemris.apr.math.vector.Vector;
 import hr.fer.zemris.apr.optimisations.function.AprFunction;
@@ -13,8 +13,8 @@ class HookeJeevesSearchTest {
     void hookeJeevesTest1() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var simplex = new HookeJeevesSearch(aprFunction3);
-        var result = simplex.of(Vector.parseSimple("0 0 0"), 0.5, 0.000001);
+        var simplex = new HookeJeevesSearch(aprFunction3, 0.5);
+        var result = simplex.search(Vector.parseSimple("0 0 0"), 0.000001);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
@@ -23,8 +23,8 @@ class HookeJeevesSearchTest {
     void hookeJeevesTest2() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var simplex = new HookeJeevesSearch(aprFunction3);
-        var result = simplex.of(Vector.parseSimple("-23 2 4"), 0.5, 0.000001);
+        var simplex = new HookeJeevesSearch(aprFunction3, 0.5);
+        var result = simplex.search(Vector.parseSimple("-23 2 4"), 0.000001);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
@@ -33,8 +33,8 @@ class HookeJeevesSearchTest {
     void hookeJeevesTest3() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var simplex = new HookeJeevesSearch(aprFunction3);
-        var result = simplex.of(Vector.parseSimple("-13 -12 5"), 0.5, 0.000001);
+        var simplex = new HookeJeevesSearch(aprFunction3, 0.5);
+        var result = simplex.search(Vector.parseSimple("-13 -12 5"), 0.000001);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }

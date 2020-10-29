@@ -12,7 +12,7 @@ public class GoldenCut {
 
     private static final double GOLDEN_RATIO = 0.5 * (sqrt(5) - 1);
 
-    public static Pair<IVector, IVector> given(Function<IVector, Double> f, Pair<IVector, IVector> borders, double e, int index) {
+    public static Pair<IVector, IVector> getInterval(Function<IVector, Double> function, Pair<IVector, IVector> borders, double e, int index) {
         int n = borders.getFirst().getDimension();
         IVector a = borders.getFirst();
         IVector b = borders.getSecond();
@@ -20,28 +20,28 @@ public class GoldenCut {
         IVector d = a.nAdd(b.nSub(a).nScalarMultiply(GOLDEN_RATIO));
         double fc, fd;
 
-        fc = f.apply(c);
-        fd = f.apply(d);
+        fc = function.apply(c);
+        fd = function.apply(d);
         while (b.get(index) - a.get(index) > e) {
             if (fc < fd) {
                 b = d;
                 d = c;
                 c = b.nSub(Vector.e(n, index, GOLDEN_RATIO * (b.get(index) - a.get(index))));
                 fd = fc;
-                fc = f.apply(c);
+                fc = function.apply(c);
             } else {
                 a = c;
                 c = d;
                 d = a.nAdd(Vector.e(n, index, GOLDEN_RATIO * (b.get(index) - a.get(index))));
                 fc = fd;
-                fd = f.apply(d);
+                fd = function.apply(d);
             }
         }
         return new Pair<>(a, b);
     }
 
-    public static IVector avg(Function<IVector, Double> f, Pair<IVector, IVector> borders, double e, int index) {
-        var r = GoldenCut.given(f, borders, e, index);
+    public static IVector getMiddleOfInterval(Function<IVector, Double> f, Pair<IVector, IVector> borders, double e, int index) {
+        var r = GoldenCut.getInterval(f, borders, e, index);
         return r.getSecond().add(r.getFirst()).scalarMultiply(0.5);
     }
 }

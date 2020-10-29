@@ -1,4 +1,4 @@
-package hr.fer.zemris.apr.optimisations;
+package hr.fer.zemris.apr.optimisations.search;
 
 import hr.fer.zemris.apr.math.vector.IVector;
 import hr.fer.zemris.apr.math.vector.Vector;
@@ -30,14 +30,13 @@ public class SimplexSearch {
         this(function, 1, 0.5, 2, 0.5);
     }
 
-    public IVector of(IVector x0, double eps) {
+    public IVector search(IVector x0, double eps) {
         int n = x0.getDimension();
         List<Pair<IVector, Double>> evaluated = new ArrayList<>(n);
 
         IVector xc;
         var minMaxPair = evaluateAndIndexOfMinMaxAndSecondGreatest(evaluated, x0);
         do {
-//            System.out.println(evaluated);
             xc = calculateCentroid(evaluated, minMaxPair.getSecond());
 
             IVector xr = reflexion(xc, evaluated.get(minMaxPair.getSecond()).getFirst());

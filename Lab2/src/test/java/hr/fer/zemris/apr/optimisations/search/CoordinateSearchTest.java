@@ -1,4 +1,4 @@
-package hr.fer.zemris.apr.optimisations;
+package hr.fer.zemris.apr.optimisations.search;
 
 import hr.fer.zemris.apr.math.vector.Vector;
 import hr.fer.zemris.apr.optimisations.function.AprFunction;
@@ -7,35 +7,36 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.Math.pow;
 
-class SimplexSearchTest {
+class CoordinateSearchTest {
 
     @Test
-    void Simplex_test_1() {
+    void of() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var simplex = new SimplexSearch(aprFunction3);
-        var result = simplex.of(Vector.parseSimple("0 0 0"), 1e-6);
+        var coordinateSearch = new CoordinateSearch(aprFunction3);
+        var result = coordinateSearch.search(Vector.parseSimple("0 0 0"), 1e-6);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
 
     @Test
-    void Simplex_test_2() {
+    void of_1() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var simplex = new SimplexSearch(aprFunction3);
-        var result = simplex.of(Vector.parseSimple("-23 2 4"), 1e-6);
+        var coordinateSearch = new CoordinateSearch(aprFunction3);
+        var result = coordinateSearch.search(Vector.parseSimple("1 100 3"), 1e-6);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
 
     @Test
-    void Simplex_test_3() {
+    void of_3() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var simplex = new SimplexSearch(aprFunction3);
-        var result = simplex.of(Vector.parseSimple("100 100 10"), 1e-6);
+        var coordinateSearch = new CoordinateSearch(aprFunction3);
+        var result = coordinateSearch.search(Vector.parseSimple("-13 -12 5"), 1e-6);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
+
 }
