@@ -39,4 +39,12 @@ class UniModalIntervalTest {
         assertEquals(-1, result.getFirst().get(0));
         assertEquals(1, result.getSecond().get(0));
     }
+
+    @Test
+    void uniModalIntervalTest5() {
+        var result = UniModalInterval.of(x -> pow(x.get(0) - 4, 2), 1.0, unit(1, 1), 0);
+
+        assertEquals(2, result.getFirst().get(0));
+        assertEquals(5, result.getSecond().get(0));
+    }
 }

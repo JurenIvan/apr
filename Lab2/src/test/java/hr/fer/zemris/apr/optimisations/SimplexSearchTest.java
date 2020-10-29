@@ -7,33 +7,35 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.Math.pow;
 
-class CoordinateSearchTest {
+class SimplexSearchTest {
 
     @Test
-    void of() {
+    void Simplex_test_1() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var result = CoordinateSearch.of(aprFunction3, Vector.parseSimple("0 0 0"), Vector.parseSimple("0.000001 0.000001 0.000001"));
+        var simplex = new SimplexSearch(aprFunction3);
+        var result = simplex.of(Vector.parseSimple("0 0 0"), 1e-6);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
 
     @Test
-    void of_1() {
+    void Simplex_test_2() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var result = CoordinateSearch.of(aprFunction3, Vector.parseSimple("1 100 3"), Vector.parseSimple("0.000001 0.000001 0.000001"));
+        var simplex = new SimplexSearch(aprFunction3);
+        var result = simplex.of(Vector.parseSimple("-23 2 4"), 1e-6);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
 
     @Test
-    void of_3() {
+    void Simplex_test_3() {
         AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
 
-        var result = CoordinateSearch.of(aprFunction3, Vector.parseSimple("-13 -12 5"), Vector.parseSimple("0.000001 0.000001 0.000001"));
+        var simplex = new SimplexSearch(aprFunction3);
+        var result = simplex.of(Vector.parseSimple("100 100 10"), 1e-6);
 
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
-
 }

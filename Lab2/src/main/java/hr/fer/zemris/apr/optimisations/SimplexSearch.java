@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 import static java.lang.Double.MAX_VALUE;
 
-public class Simplex {
+public class SimplexSearch {
 
     private final double alfa;
     private final double beta;
@@ -18,7 +18,7 @@ public class Simplex {
     private final double sigma;
     private final Function<IVector, Double> function;
 
-    public Simplex(Function<IVector, Double> function, double alfa, double beta, double gamma, double sigma) {
+    public SimplexSearch(Function<IVector, Double> function, double alfa, double beta, double gamma, double sigma) {
         this.alfa = alfa;
         this.beta = beta;
         this.gamma = gamma;
@@ -26,7 +26,7 @@ public class Simplex {
         this.function = function;
     }
 
-    public Simplex(Function<IVector, Double> function) {
+    public SimplexSearch(Function<IVector, Double> function) {
         this(function, 1, 0.5, 2, 0.5);
     }
 
@@ -34,12 +34,10 @@ public class Simplex {
         int n = x0.getDimension();
         List<Pair<IVector, Double>> evaluated = new ArrayList<>(n);
 
-
         IVector xc;
         var minMaxPair = evaluateAndIndexOfMinMaxAndSecondGreatest(evaluated, x0);
         do {
-            System.out.println(evaluated);
-            System.out.println();
+//            System.out.println(evaluated);
             xc = calculateCentroid(evaluated, minMaxPair.getSecond());
 
             IVector xr = reflexion(xc, evaluated.get(minMaxPair.getSecond()).getFirst());
@@ -175,4 +173,5 @@ public class Simplex {
         x.scalarMultiply(1.0 / (evaluated.size() - 1));
         return x;
     }
+
 }
