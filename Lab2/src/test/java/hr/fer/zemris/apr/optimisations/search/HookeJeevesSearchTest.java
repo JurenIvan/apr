@@ -39,4 +39,13 @@ class HookeJeevesSearchTest {
         Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
     }
 
+    @Test
+    void hookeJeevesTest4() {
+        AprFunction aprFunction3 = new AprFunction(x -> pow(x.get(0) - 1, 2) + pow(x.get(1) - 2, 2) + pow(x.get(2) - 3, 2));
+
+        var simplex = new HookeJeevesSearch(aprFunction3);
+        var result = simplex.search(Vector.parseSimple("-13 -12 5"), 0.000001);
+
+        Assertions.assertTrue(new Vector(1, 2, 3).equals(result, 3));
+    }
 }

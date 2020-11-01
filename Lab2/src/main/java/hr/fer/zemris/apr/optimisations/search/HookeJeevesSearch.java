@@ -9,7 +9,7 @@ import java.util.function.Function;
 public class HookeJeevesSearch implements SearchAlgorithm {
 
     private final Function<IVector, Double> function;
-    private double dx;
+    private final double dx;
 
     public HookeJeevesSearch(Function<IVector, Double> function, double dx) {
         this.function = function;

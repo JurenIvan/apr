@@ -14,6 +14,7 @@ import org.knowm.xchart.XYChartBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import static hr.fer.zemris.apr.optimisations.function.Functions.*;
 
@@ -26,17 +27,18 @@ public class Demo {
 
 //        demo.task1();
 //        demo.task2();
-        demo.task2_1(); //did this to have the same starting point, more relevant
-//        demo.task3();
+//        demo.task2_1(); //did this to have the same starting point, more relevant
+        demo.task3();
 //        demo.task4();
 //        demo.task5();
     }
 
     public void task1() {
-        var f3 = F3_SUPPLIER.apply(3);
+//        Function<IVector, Double> f3 = F3_SUPPLIER.apply(3);
+        Function<IVector, Double> f3 = (x) -> Math.pow(x.get(0) - 3, 2);
         List<List<Integer>> fCalls = List.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        for (int i = 1; i < 100; i++) {
-            IVector x0 = Vector.unit(3, i);
+        for (int i = 1; i < 1000; i++) {
+            IVector x0 = Vector.unit(1, i);
 
             var coordinateSearchAprFunc = new AprFunction(f3);
             var hookeJeevesSearchAprFunc = new AprFunction(f3);
@@ -128,12 +130,10 @@ public class Demo {
     }
 
     public void task3() {
-        var f = F4;
-
         IVector x0 = Vector.unit(2, 5);
 
-        var hookeJeevesSearchAprFunc = new AprFunction(f);
-        var simplexSearchAprFunc = new AprFunction(f);
+        var hookeJeevesSearchAprFunc = new AprFunction(F4);
+        var simplexSearchAprFunc = new AprFunction(F4);
 
         SearchAlgorithm hookeJeevesSearch = new HookeJeevesSearch(hookeJeevesSearchAprFunc);
         SearchAlgorithm simplexSearch = new SimplexSearch(simplexSearchAprFunc);
@@ -181,19 +181,21 @@ public class Demo {
     }
 
     public void task5() {
-        int iterationCount = 1000;
+        int iterationCount = 1000000;
         int success = 0;
         var f6 = F6_SUPPLIER.apply(2);
         for (int i = 0; i < iterationCount; i++) {
             var aprFunction = new AprFunction(f6);
-            var alg = new CoordinateSearch(aprFunction);
-            double x = Math.random() * 100 - 50;
-            double y = Math.random() * 100 - 50;
-            var result = alg.search(new Vector(x, y), 1e-6);
-            System.out.println(result);
-            if (result.norm() < 1e-4) success++;
+            var alg = new SimplexSearch(aprFunction);
+            double x = Math.random() * 10 - 5;
+            double y = Math.random() * 10 - 5;
+            var result = alg.search(new Vector(x, y), E);
+            if (result.norm() < 0.001) {
+                success++;
+                System.out.println(result);
+            }
         }
-
+        System.out.println(success);
         System.out.println(success / (double) iterationCount);
     }
 }

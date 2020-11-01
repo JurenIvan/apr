@@ -62,7 +62,7 @@ public class SimplexSearch implements SearchAlgorithm {
                     if (valueAtXk < evaluated.get(minMaxPair.getSecond()).getSecond()) {
                         evaluated.set(minMaxPair.getSecond(), new Pair<>(xk, valueAtXk));
                     } else {
-                        minMaxPair = reEvaluateAndIndexOfMinMax(evaluated, minMaxPair, n);
+                        minMaxPair = reEvaluateAndIndexOfMinMax(evaluated, minMaxPair);
                         continue;
                     }
                 } else {
@@ -121,12 +121,12 @@ public class SimplexSearch implements SearchAlgorithm {
         return new Pair<>(indexMin, indexMax);
     }
 
-    private Pair<Integer, Integer> reEvaluateAndIndexOfMinMax(List<Pair<IVector, Double>> evaluated, Pair<Integer, Integer> minMaxPair, int n) {
+    private Pair<Integer, Integer> reEvaluateAndIndexOfMinMax(List<Pair<IVector, Double>> evaluated, Pair<Integer, Integer> minMaxPair) {
         int indexMin = -1, indexMax = -1;
         double valueMin = MAX_VALUE, valueMax = -MAX_VALUE;
         var indexOldMin = minMaxPair.getFirst();
         var xl = evaluated.get(indexOldMin).getFirst();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < evaluated.size(); i++) {
             if (i == indexOldMin) continue;
             var xj = evaluated.get(i).getFirst().add(xl).scalarMultiply(sigma);
             var valueAtXj = function.apply(xj);
