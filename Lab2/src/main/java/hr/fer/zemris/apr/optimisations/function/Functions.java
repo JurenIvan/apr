@@ -10,7 +10,7 @@ import static java.util.stream.IntStream.of;
 public class Functions {
 
     public static final Function<IVector, Double> F1 = x -> 100 * (pow(x.get(1) - pow(x.get(0), 2), 2) + pow(1 - x.get(0), 2));
-    public static final Function<IVector, Double> F2 = x -> pow(x.get(0) - 4, 2) + 4 * pow(x.get(1), 2);
+    public static final Function<IVector, Double> F2 = x -> pow(x.get(0) - 4, 2) + 4 * pow(x.get(1) - 2, 2);
     public static final Function<IVector, Double> F4 = x -> abs((x.get(0) - x.get(1)) * (x.get(0) + x.get(1))) + sqrt(pow(x.get(0), 2) + pow(x.get(1), 2));
 
     public static final Function<Integer, Function<IVector, Double>> F3_SUPPLIER = order -> (Function<IVector, Double>) x -> {
