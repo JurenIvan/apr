@@ -80,7 +80,7 @@ public class SimplexSearch implements SearchAlgorithm {
         for (int i = 0; i < evaluated.size(); i++) {
             sum += Math.pow(evaluated.get(i).getSecond() - valueAtXc, 2);
         }
-        return Math.sqrt(sum) > eps;
+        return Math.sqrt(sum / evaluated.size()) > eps;
     }
 
     private IVector reflexion(IVector xc, IVector xh) {
