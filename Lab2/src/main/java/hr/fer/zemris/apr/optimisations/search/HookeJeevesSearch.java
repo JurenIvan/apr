@@ -52,7 +52,7 @@ public class HookeJeevesSearch implements SearchAlgorithm {
                 x.sub(Vector.e(n, i, dx * 2));
                 valueAtX = function.apply(x);
                 if (valueAtX > p) {
-                    x.add(Vector.e(n, i, dx * 2));
+                    x.add(Vector.e(n, i, dx));
                 }
             }
         }
