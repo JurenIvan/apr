@@ -26,13 +26,13 @@ public class GoldenCut {
             if (fc < fd) {
                 b = d;
                 d = c;
-                c = b.nSub(b.nSub(a).nScalarMultiply(GOLDEN_RATIO));
+                c = b.nSub(b.nSub(a).scalarMultiply(GOLDEN_RATIO));
                 fd = fc;
                 fc = function.apply(c);
             } else {
                 a = c;
                 c = d;
-                d = a.nAdd(b.nSub(a).nScalarMultiply(GOLDEN_RATIO));
+                d = a.nAdd(b.nSub(a).scalarMultiply(GOLDEN_RATIO));
                 fc = fd;
                 fd = function.apply(d);
             }
