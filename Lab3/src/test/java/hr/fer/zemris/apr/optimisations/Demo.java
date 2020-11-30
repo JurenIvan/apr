@@ -4,10 +4,10 @@ import hr.fer.zemris.apr.math.vector.IVector;
 import hr.fer.zemris.apr.math.vector.Vector;
 import hr.fer.zemris.apr.optimisations.functions.CountingFunction;
 import hr.fer.zemris.apr.optimisations.search.GradientSearch;
+import hr.fer.zemris.apr.optimisations.search.NewtonRaphsonSearch;
 import org.junit.jupiter.api.Test;
 
-import static hr.fer.zemris.apr.optimisations.functions.Functions.F3;
-import static hr.fer.zemris.apr.optimisations.functions.Functions.F3_DERIVATIVE;
+import static hr.fer.zemris.apr.optimisations.functions.Functions.*;
 
 class Demo {
 
@@ -15,9 +15,9 @@ class Demo {
     void task1_1() {
         var f3 = new CountingFunction<>(F3);
         var f3Derivative = new CountingFunction<>(F3_DERIVATIVE);
-        var gs = new GradientSearch(f3, f3Derivative, true, 10000);
+        var gs = new GradientSearch(f3, f3Derivative, true, 1000);
 
-        IVector result = gs.search(new Vector(-1.9, 2.0), 1e-6);
+        IVector result = gs.search(new Vector(0, 0), 1e-6);
 
         System.out.println(result);
         System.out.println(f3.getCounter());
@@ -28,18 +28,69 @@ class Demo {
     void task1_2() {
         var f3 = new CountingFunction<>(F3);
         var f3Derivative = new CountingFunction<>(F3_DERIVATIVE);
-        var gs = new GradientSearch(f3, f3Derivative, false, 10);
+        var gs = new GradientSearch(f3, f3Derivative, false, 1000);
 
-        IVector result = gs.search(new Vector(-1.9, 2.0), 1e-6);
+        IVector result = gs.search(new Vector(0, 0), 1e-6);
 
         System.out.println(result);
         System.out.println(f3.getCounter());
         System.out.println(f3Derivative.getCounter());
     }
 
+    @Test
+    void task2_Function1_GradientSearch() {
+        var f1 = new CountingFunction<>(F1);
+        var f1Derivative = new CountingFunction<>(F1_DERIVATIVE);
+        var gs = new GradientSearch(f1, f1Derivative, true, 10000);
+
+        IVector result = gs.search(new Vector(-1.9, 2.0), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f1.getCounter());
+        System.out.println(f1Derivative.getCounter());
+    }
 
     @Test
-    void task2() {
+    void task2_Function1_NewtonRaphson() {
+        var f1 = new CountingFunction<>(F1);
+        var f1Derivative = new CountingFunction<>(F1_DERIVATIVE);
+        var f1Hessian = new CountingFunction<>(F1_HESSIAN);
+        var gs = new NewtonRaphsonSearch(f1, f1Derivative, f1Hessian, true);
+
+        IVector result = gs.search(new Vector(-1.9, 2.0), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f1.getCounter());
+        System.out.println(f1Derivative.getCounter());
+        System.out.println(f1Hessian.getCounter());
+    }
+
+    @Test
+    void task2_Function2_GradientSearch() {
+        var f2 = new CountingFunction<>(F2);
+        var f2Derivative = new CountingFunction<>(F2_DERIVATIVE);
+        var gs = new GradientSearch(f2, f2Derivative, true, 1000);
+
+        IVector result = gs.search(new Vector(0.1, 0.3), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f2.getCounter());
+        System.out.println(f2Derivative.getCounter());
+    }
+
+    @Test
+    void task2_Function2_NewtonRaphson() {
+        var f2 = new CountingFunction<>(F2);
+        var f2Derivative = new CountingFunction<>(F2_DERIVATIVE);
+        var f2Hessian = new CountingFunction<>(F2_HESSIAN);
+        var nrs = new NewtonRaphsonSearch(f2, f2Derivative, f2Hessian, true);
+
+        IVector result = nrs.search(new Vector(0.1, 0.3), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f2.getCounter());
+        System.out.println(f2Derivative.getCounter());
+        System.out.println(f2Hessian.getCounter());
     }
 
     @Test

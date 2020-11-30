@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 import static java.lang.Math.sqrt;
 
-public class GoldenCut {
+public class GeneralGoldenCut {
 
     private static final double GOLDEN_RATIO = 0.5 * (sqrt(5) - 1);
 
@@ -41,7 +41,7 @@ public class GoldenCut {
     }
 
     public static IVector getMiddleOfInterval(Function<IVector, Double> f, Pair<IVector, IVector> borders, double e) {
-        var r = GoldenCut.getInterval(f, borders, e);
+        var r = GeneralGoldenCut.getInterval(f, borders, e);
         return r.getSecond().add(r.getFirst()).scalarMultiply(0.5);
     }
 }

@@ -1,8 +1,8 @@
 package hr.fer.zemris.apr.optimisations.search;
 
 import hr.fer.zemris.apr.math.vector.IVector;
-import hr.fer.zemris.apr.optimisations.GoldenCut;
-import hr.fer.zemris.apr.optimisations.UniModalInterval;
+import hr.fer.zemris.apr.optimisations.GeneralGoldenCut;
+import hr.fer.zemris.apr.optimisations.GeneralUniModalInterval;
 
 import java.util.function.Function;
 
@@ -27,11 +27,10 @@ public class GradientSearch implements SearchAlgorithm {
         for (IVector gradient = derivation.apply(result); gradient.norm() > eps && remainingIterations-- >= 0; gradient = derivation.apply(result)) {
 
             if (useGoldenCut) {
-                result = GoldenCut.getMiddleOfInterval(function, UniModalInterval.of(function, x0, gradient), eps);
+                result = GeneralGoldenCut.getMiddleOfInterval(function, GeneralUniModalInterval.of(function, result, gradient), eps);
             } else {
                 result.sub(gradient);
             }
-
         }
 
         return result;

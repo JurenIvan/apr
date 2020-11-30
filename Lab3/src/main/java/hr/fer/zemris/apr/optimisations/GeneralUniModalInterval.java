@@ -5,7 +5,7 @@ import hr.fer.zemris.apr.optimisations.domain.Pair;
 
 import java.util.function.Function;
 
-public class UniModalInterval {
+public class GeneralUniModalInterval {
 
     public static Pair<IVector, IVector> of(Function<IVector, Double> function, IVector startValue, IVector direction) {
         IVector left = startValue.nSub(direction);
