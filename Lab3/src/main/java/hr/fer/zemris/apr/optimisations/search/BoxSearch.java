@@ -5,6 +5,7 @@ import hr.fer.zemris.apr.math.vector.Vector;
 import hr.fer.zemris.apr.optimisations.domain.Pair;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
@@ -13,11 +14,13 @@ public class BoxSearch implements SearchAlgorithm {
     private final Function<IVector, Double> function;
     private final List<Function<IVector, Double>> gi;
     private final Function<Integer, Pair<Double, Double>> borderConstrains;
+    private final double alpha;
 
-    public BoxSearch(Function<IVector, Double> function, List<Function<IVector, Double>> gi, Function<Integer, Pair<Double, Double>> borders) {
+    public BoxSearch(Function<IVector, Double> function, List<Function<IVector, Double>> gi, Function<Integer, Pair<Double, Double>> borders, double alpha) {
         this.function = function;
         this.gi = gi;
         this.borderConstrains = borders;
+        this.alpha = alpha;
     }
 
     @Override
@@ -25,8 +28,8 @@ public class BoxSearch implements SearchAlgorithm {
         int n = x0.getDimension();
         checkStartingPoint(x0.copy());
         List<Pair<IVector, Double>> simplex = generatePoints(x0);
-
         IVector xc;
+        int i3 = 100000;
         do {
             Pair<Integer, Integer> worstAndAlmostWorst = findTwoWorstPoints(simplex);
             xc = calculateCentroid(simplex, worstAndAlmostWorst.getFirst());
@@ -36,17 +39,18 @@ public class BoxSearch implements SearchAlgorithm {
                 checkBorderCondition(xr, i);
             }
             while (gi.stream().anyMatch(e -> e.apply(xr) < 0)) {
-                xr.add(xc).nScalarMultiply(0.5);
+                xr.add(xc).scalarMultiply(0.5);
             }
             var xrValue = function.apply(xr);
             if (xrValue > simplex.get(worstAndAlmostWorst.getSecond()).getSecond()) {
-                xr.add(xc).nScalarMultiply(0.5);
+                xr.add(xc).scalarMultiply(0.5);
+                xrValue = function.apply(xr);
             }
             simplex.set(worstAndAlmostWorst.getFirst(), new Pair<>(xr, xrValue));
 
-        } while (checkCondition(simplex, xc, eps));
+        } while (i3-- > 0 || checkCondition(simplex, xc, eps));
 
-        return xc;
+        return simplex.stream().min(Comparator.comparingDouble(Pair::getSecond)).get().getFirst();
     }
 
     private boolean checkCondition(List<Pair<IVector, Double>> evaluated, IVector xc, double eps) {
@@ -65,7 +69,7 @@ public class BoxSearch implements SearchAlgorithm {
     }
 
     private IVector reflexion(IVector xc, IVector xh) {
-        return xc.nScalarMultiply(3).sub(xh.nScalarMultiply(2));
+        return xc.nScalarMultiply(1 + alpha).sub(xh.nScalarMultiply(alpha));
     }
 
     private Pair<Integer, Integer> findTwoWorstPoints(List<Pair<IVector, Double>> simplex) {
@@ -104,29 +108,29 @@ public class BoxSearch implements SearchAlgorithm {
     }
 
     private IVector calculateCentroid(List<Pair<IVector, Double>> simplex, int excluded) {
-        IVector xc = new Vector(simplex.get(0).getFirst().getDimension());
+        IVector xc = new Vector(new double[simplex.get(0).getFirst().getDimension()]);
         for (int i = 0; i < simplex.size(); i++) {
             if (i == excluded) continue;
             xc.add(simplex.get(i).getFirst());
         }
-        xc = xc.nScalarMultiply(1.0 / simplex.size());
+        xc.scalarMultiply(1.0 / (simplex.size() - 1));
         return xc;
     }
 
     private IVector randomPoint(IVector xc) {
         int n = xc.getDimension();
-        var point = new Vector(n);
+        var point = new Vector(new double[n]);
 
         for (int i = 0; i < n; i++) {
             var bc = borderConstrains.apply(i);
             point.set(i, bc.getFirst() + Math.random() * (bc.getSecond() - bc.getFirst()));
         }
 
-        while (gi.stream().anyMatch(e -> e.apply(point) < 0)) {
-            point.add(xc).nScalarMultiply(0.5);
+        while (gi.stream().anyMatch(e -> e.apply(point) <= 0)) {
+            point.add(xc).scalarMultiply(0.5);
         }
 
-        return xc;
+        return point;
     }
 
     private void checkStartingPoint(IVector x0) {

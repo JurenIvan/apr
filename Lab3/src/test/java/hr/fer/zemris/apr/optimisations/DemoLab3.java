@@ -2,14 +2,18 @@ package hr.fer.zemris.apr.optimisations;
 
 import hr.fer.zemris.apr.math.vector.IVector;
 import hr.fer.zemris.apr.math.vector.Vector;
+import hr.fer.zemris.apr.optimisations.domain.Pair;
 import hr.fer.zemris.apr.optimisations.functions.CountingFunction;
+import hr.fer.zemris.apr.optimisations.search.BoxSearch;
 import hr.fer.zemris.apr.optimisations.search.GradientSearch;
 import hr.fer.zemris.apr.optimisations.search.NewtonRaphsonSearch;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static hr.fer.zemris.apr.optimisations.functions.Functions.*;
 
-class Demo {
+class DemoLab3 {
 
     @Test
     void task1_1() {
@@ -55,7 +59,7 @@ class Demo {
         var f1 = new CountingFunction<>(F1);
         var f1Derivative = new CountingFunction<>(F1_DERIVATIVE);
         var f1Hessian = new CountingFunction<>(F1_HESSIAN);
-        var gs = new NewtonRaphsonSearch(f1, f1Derivative, f1Hessian, true);
+        var gs = new NewtonRaphsonSearch(f1, f1Derivative, f1Hessian, true, 1000);
 
         IVector result = gs.search(new Vector(-1.9, 2.0), 1e-6);
 
@@ -83,7 +87,7 @@ class Demo {
         var f2 = new CountingFunction<>(F2);
         var f2Derivative = new CountingFunction<>(F2_DERIVATIVE);
         var f2Hessian = new CountingFunction<>(F2_HESSIAN);
-        var nrs = new NewtonRaphsonSearch(f2, f2Derivative, f2Hessian, true);
+        var nrs = new NewtonRaphsonSearch(f2, f2Derivative, f2Hessian, true, 1000);
 
         IVector result = nrs.search(new Vector(0.1, 0.3), 1e-6);
 
@@ -94,7 +98,27 @@ class Demo {
     }
 
     @Test
-    void task3() {
+    void task3_Function1() {
+        var f1 = new CountingFunction<>(F1);
+
+        var boxSearch = new BoxSearch(f1, List.of(x -> x.get(1) - x.get(0), x -> 2 - x.get(0)), x -> new Pair<>(-100.0, 100.0), 1.3);
+
+        IVector result = boxSearch.search(new Vector(-30, 23), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f1.getCounter());
+    }
+
+    @Test
+    void task3_Function2() {
+        var f1 = new CountingFunction<>(F2);
+
+        var boxSearch = new BoxSearch(f1, List.of(x -> x.get(1) - x.get(0), x -> 2 - x.get(0)), x -> new Pair<>(-100.0, 100.0), 1.3);
+
+        IVector result = boxSearch.search(new Vector(-30, 23), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f1.getCounter());
     }
 
     @Test
