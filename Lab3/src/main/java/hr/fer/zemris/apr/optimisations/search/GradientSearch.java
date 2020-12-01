@@ -32,7 +32,6 @@ public class GradientSearch implements SearchAlgorithm {
                 result.sub(gradient);
             }
         }
-
         return result;
     }
 }

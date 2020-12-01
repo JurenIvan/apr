@@ -6,10 +6,13 @@ import hr.fer.zemris.apr.optimisations.domain.Pair;
 import hr.fer.zemris.apr.optimisations.functions.CountingFunction;
 import hr.fer.zemris.apr.optimisations.search.BoxSearch;
 import hr.fer.zemris.apr.optimisations.search.GradientSearch;
+import hr.fer.zemris.apr.optimisations.search.MixedFunctionSearch;
 import hr.fer.zemris.apr.optimisations.search.NewtonRaphsonSearch;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import static hr.fer.zemris.apr.optimisations.functions.Functions.*;
 
@@ -122,10 +125,50 @@ class DemoLab3 {
     }
 
     @Test
-    void task4() {
+    void task4_Function1() {
+        var f = new CountingFunction<>(F1);
+        List<Function<IVector, Double>> gi = List.of(x -> x.get(1) - x.get(0), x -> 2 - x.get(0));
+
+        var functionSearch = new MixedFunctionSearch(f, gi, new ArrayList<>(), 1);
+        var result = functionSearch.search(new Vector(-1.9, 2), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f.getCounter());
     }
 
     @Test
-    void task5() {
+    void task4_Function2() {
+        var f = new CountingFunction<>(F2);
+        List<Function<IVector, Double>> gi = List.of(x -> x.get(1) - x.get(0), x -> 2 - x.get(0));
+
+        var functionSearch = new MixedFunctionSearch(f, gi, new ArrayList<>(), 1);
+        var result = functionSearch.search(new Vector(0.1, 0.3), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f.getCounter());
+    }
+
+    @Test
+    void task5_Funckcija4_tocka55() {
+        var f = new CountingFunction<>(F4);
+        List<Function<IVector, Double>> gi = List.of(x -> 3 - x.get(0) - x.get(1), x -> 3 + 1.5 * x.get(0) - x.get(1), x -> x.get(1) - 1);
+
+        var functionSearch = new MixedFunctionSearch(f, gi, new ArrayList<>(), 1);
+        var result = functionSearch.search(new Vector(5, 5), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f.getCounter());
+    }
+
+    @Test
+    void task5_Funckcija4_tocka00() {
+        var f = new CountingFunction<>(F4);
+        List<Function<IVector, Double>> gi = List.of(x -> 3 - x.get(0) - x.get(1), x -> 3 + 1.5 * x.get(0) - x.get(1), x -> x.get(1) - 1);
+
+        var functionSearch = new MixedFunctionSearch(f, gi, new ArrayList<>(), 1);
+        var result = functionSearch.search(new Vector(0, 0), 1e-6);
+
+        System.out.println(result);
+        System.out.println(f.getCounter());
     }
 }
