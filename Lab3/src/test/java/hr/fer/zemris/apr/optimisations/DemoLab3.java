@@ -27,8 +27,8 @@ class DemoLab3 {
         IVector result = gs.search(new Vector(0, 0), 1e-6);
 
         System.out.println(result);
-        System.out.println(f3.getCounter());
-        System.out.println(f3Derivative.getCounter());
+        System.out.println("f3 evaluations: " + f3.getCounter());
+        System.out.println("f3 gradient evaluations: " + f3Derivative.getCounter());
     }
 
     @Test
@@ -40,8 +40,8 @@ class DemoLab3 {
         IVector result = gs.search(new Vector(0, 0), 1e-6);
 
         System.out.println(result);
-        System.out.println(f3.getCounter());
-        System.out.println(f3Derivative.getCounter());
+        System.out.println("f3 evaluations: " + f3.getCounter());
+        System.out.println("f3 gradient evaluations: " + f3Derivative.getCounter());
     }
 
     @Test
@@ -53,8 +53,8 @@ class DemoLab3 {
         IVector result = gs.search(new Vector(-1.9, 2.0), 1e-6);
 
         System.out.println(result);
-        System.out.println(f1.getCounter());
-        System.out.println(f1Derivative.getCounter());
+        System.out.println("f1 evaluations: " + f1.getCounter());
+        System.out.println("f1 gradient evaluations: " + f1Derivative.getCounter());
     }
 
     @Test
@@ -67,9 +67,9 @@ class DemoLab3 {
         IVector result = gs.search(new Vector(-1.9, 2.0), 1e-6);
 
         System.out.println(result);
-        System.out.println(f1.getCounter());
-        System.out.println(f1Derivative.getCounter());
-        System.out.println(f1Hessian.getCounter());
+        System.out.println("f1 evaluations: " + f1.getCounter());
+        System.out.println("f1 gradijent evaluations: " + f1Derivative.getCounter());
+        System.out.println("f1 hessian evaluationas: " + f1Hessian.getCounter());
     }
 
     @Test
@@ -81,8 +81,8 @@ class DemoLab3 {
         IVector result = gs.search(new Vector(0.1, 0.3), 1e-6);
 
         System.out.println(result);
-        System.out.println(f2.getCounter());
-        System.out.println(f2Derivative.getCounter());
+        System.out.println("f2 evaluations: " + f2.getCounter());
+        System.out.println("f2 gradient evaluations: " + f2Derivative.getCounter());
     }
 
     @Test
@@ -95,9 +95,9 @@ class DemoLab3 {
         IVector result = nrs.search(new Vector(0.1, 0.3), 1e-6);
 
         System.out.println(result);
-        System.out.println(f2.getCounter());
-        System.out.println(f2Derivative.getCounter());
-        System.out.println(f2Hessian.getCounter());
+        System.out.println("f evaluations: " + f2.getCounter());
+        System.out.println("f gradijent evaluations: " + f2Derivative.getCounter());
+        System.out.println("f hessian evaluationas: " + f2Hessian.getCounter());
     }
 
     @Test
@@ -109,7 +109,7 @@ class DemoLab3 {
         IVector result = boxSearch.search(new Vector(-30, 23), 1e-6);
 
         System.out.println(result);
-        System.out.println(f1.getCounter());
+        System.out.println("f evaluations: " + f1.getCounter());
     }
 
     @Test
@@ -121,7 +121,7 @@ class DemoLab3 {
         IVector result = boxSearch.search(new Vector(-30, 23), 1e-6);
 
         System.out.println(result);
-        System.out.println(f1.getCounter());
+        System.out.println("f evaluations: " + f1.getCounter());
     }
 
     @Test
@@ -133,7 +133,7 @@ class DemoLab3 {
         var result = functionSearch.search(new Vector(-1.9, 2), 1e-6);
 
         System.out.println(result);
-        System.out.println(f.getCounter());
+        System.out.println("f evaluations: " + f.getCounter());
     }
 
     @Test
@@ -145,7 +145,7 @@ class DemoLab3 {
         var result = functionSearch.search(new Vector(0.1, 0.3), 1e-6);
 
         System.out.println(result);
-        System.out.println(f.getCounter());
+        System.out.println("f evaluations: " + f.getCounter());
     }
 
     @Test
@@ -157,7 +157,7 @@ class DemoLab3 {
         var result = functionSearch.search(new Vector(5, 5), 1e-6);
 
         System.out.println(result);
-        System.out.println(f.getCounter());
+        System.out.println("f evaluations: " + f.getCounter());
     }
 
     @Test
@@ -169,6 +169,6 @@ class DemoLab3 {
         var result = functionSearch.search(new Vector(0, 0), 1e-6);
 
         System.out.println(result);
-        System.out.println(f.getCounter());
+        System.out.println("f evaluations: " + f.getCounter());
     }
 }
