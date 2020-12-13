@@ -13,7 +13,6 @@ public class FunctionEvaluatorBinary implements Evaluator<InstanceBinary> {
 
     public FunctionEvaluatorBinary(IFunction function, double[] minValue, double[] maxValue) {
         this((expected, actual) -> Math.pow(expected - actual, 2), function, minValue, maxValue);
-
     }
 
     public FunctionEvaluatorBinary(BiFunction<Double, Double, Double> errorCollectingFuction, IFunction function, double[] minValue, double[] maxValue) {
@@ -23,12 +22,7 @@ public class FunctionEvaluatorBinary implements Evaluator<InstanceBinary> {
         this.maxValue = maxValue;
     }
 
-    @Override
-    public double evaluate(InstanceBinary instance) {
-        return errorCollectingFunction.apply(instance.getFitness(), function.valueAt(transformIntoDoubleRepresentation(instance.getChromosomes())));
-    }
-
-    private double[] transformIntoDoubleRepresentation(boolean[][] chromosomes) {
+    private static double[] transformIntoDoubleRepresentation(boolean[][] chromosomes, double[] minValue, double[] maxValue) {
         var result = new double[chromosomes.length];
 
         for (int dimension = 0; dimension < chromosomes.length; dimension++) {
@@ -45,5 +39,16 @@ public class FunctionEvaluatorBinary implements Evaluator<InstanceBinary> {
         }
 
         return result;
+    }
+
+    @Override
+    public double evaluate(InstanceBinary instance) {
+        var value = transformIntoDoubleRepresentation(instance.getChromosomes(), minValue, maxValue);
+        return errorCollectingFunction.apply(0.0, function.valueAt(value));
+    }
+
+    @Override
+    public double[] evaluateDoubleValue(InstanceBinary instance) {
+        return transformIntoDoubleRepresentation(instance.getChromosomes(), minValue, maxValue);
     }
 }

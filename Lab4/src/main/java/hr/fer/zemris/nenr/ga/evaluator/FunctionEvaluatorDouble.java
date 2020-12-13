@@ -10,7 +10,7 @@ public class FunctionEvaluatorDouble implements Evaluator<InstanceDouble> {
     private final IFunction function;
 
     public FunctionEvaluatorDouble(IFunction function) {
-        this((expected, actual) -> Math.pow(expected - actual, 2), function);
+        this((expected, actual) -> Math.abs(expected - actual), function);
     }
 
     public FunctionEvaluatorDouble(BiFunction<Double, Double, Double> errorCollectingFuction, IFunction function) {
@@ -19,6 +19,11 @@ public class FunctionEvaluatorDouble implements Evaluator<InstanceDouble> {
     }
 
     public double evaluate(InstanceDouble instance) {
-        return errorCollectingFuction.apply(instance.getFitness(), function.valueAt(instance.getChromosomes()));
+        return errorCollectingFuction.apply(0.0, function.valueAt(instance.getChromosomes()));
+    }
+
+    @Override
+    public double[] evaluateDoubleValue(InstanceDouble instance) {
+        return instance.getChromosomes();
     }
 }

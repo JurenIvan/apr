@@ -1,24 +1,24 @@
 package hr.fer.zemris.nenr.ga.picker;
 
-import hr.fer.zemris.nenr.ga.domain.InstanceDouble;
+import hr.fer.zemris.nenr.ga.domain.InstanceBinary;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RouletteWheel implements Picker<InstanceDouble> {
+public class RouletteWheelBinary implements Picker<InstanceBinary> {
 
-    private List<Pair<InstanceDouble, Integer>> population;
+    private List<Pair<InstanceBinary, Integer>> population;
     private double sum;
 
     @Override
-    public void configure(List<InstanceDouble> population) {
-        double populationMax = population.stream().map(InstanceDouble::getFitness).max(Double::compare).orElse(0.0);
+    public void configure(List<InstanceBinary> population) {
+        double populationMax = population.stream().map(InstanceBinary::getFitness).max(Double::compare).orElse(0.0);
         this.population = new ArrayList<>(population.size());
 
         int counter = 0;
-        for (InstanceDouble instance : population) {
-            var newInstance = new InstanceDouble(instance.getChromosomes());
+        for (InstanceBinary instance : population) {
+            var newInstance = new InstanceBinary(instance.getChromosomes());
             newInstance.setFitness(Math.log(populationMax + 1) - Math.log(instance.getFitness() + 1));
             this.population.add(new Pair<>(newInstance, counter++));
         }
@@ -27,8 +27,8 @@ public class RouletteWheel implements Picker<InstanceDouble> {
 
     public int pickOne() {
         double rndNum = Math.random() * sum;
-        Iterator<Pair<InstanceDouble, Integer>> iterator = this.population.iterator();
-        Pair<InstanceDouble, Integer> result = iterator.next();
+        Iterator<Pair<InstanceBinary, Integer>> iterator = this.population.iterator();
+        Pair<InstanceBinary, Integer> result = iterator.next();
         rndNum -= result.getFirst().getFitness();
         while (rndNum > 0) {
             result = iterator.next();

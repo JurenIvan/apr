@@ -33,10 +33,10 @@ public class GeneticAlgorithm<T extends GASolution<?>> {
     }
 
     public void train() {
-        initializePopulation();
+        population.addAll(initializer.initialize());
         evaluatePopulation();
         for (int i = 0; i < maxIterationCount; i++) {
-            doSelection();
+            selection.doSelection(population);
             evaluatePopulation();
             conditionallySave(i + 1);
         }
@@ -53,17 +53,8 @@ public class GeneticAlgorithm<T extends GASolution<?>> {
         history.add(new GeneticAlgorithmHistory<>(generation, populationFitness(), best));
     }
 
-    public void initializePopulation() {
-        population.addAll(initializer.initialize());
-    }
-
-
     public void evaluatePopulation() {
         population.forEach(e -> e.setFitness(evaluator.evaluate(e)));
-    }
-
-    public void doSelection() {
-        selection.doSelection(population);
     }
 
     public void doMutation() {

@@ -26,11 +26,10 @@ public class InstanceBinary implements GASolution<boolean[][]> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < chromosomes.length; i++) {
-            sb.append(i).append(" ");
+            sb.append('\n').append(i).append("->");
             for (int j = 0; j < chromosomes[0].length; j++) {
                 sb.append(chromosomes[i][j] ? "1" : "0");
             }
-            sb.append("\n");
         }
 
         return "Instance{cromosomes=" + sb.toString() + ", fitness=" + fitness + '}';
