@@ -1,4 +1,4 @@
-package hr.fer.zemris.nenr.ga;
+package hr.fer.zemris.nenr.ga.functions;
 
 import hr.fer.zemris.nenr.ga.evaluator.IFunction;
 

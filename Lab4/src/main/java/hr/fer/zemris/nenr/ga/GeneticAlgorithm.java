@@ -1,5 +1,6 @@
 package hr.fer.zemris.nenr.ga;
 
+import hr.fer.zemris.apr.optimisations.functions.CountingFunction;
 import hr.fer.zemris.nenr.ga.domain.GASolution;
 import hr.fer.zemris.nenr.ga.evaluator.Evaluator;
 import hr.fer.zemris.nenr.ga.initializer.Initializer;
@@ -18,6 +19,7 @@ public class GeneticAlgorithm<T extends GASolution<?>> {
     private final Evaluator<T> evaluator;
     private final Initializer<T> initializer;
     private final Selection<T> selection;
+    private final CountingFunction<double[], Double> function;
     private final List<GeneticAlgorithmHistory<T>> history;
     private final int maxIterationCount;
 
@@ -30,12 +32,13 @@ public class GeneticAlgorithm<T extends GASolution<?>> {
         this.selection = selection;
         this.mutator = mutator;
         this.history = keepHistory ? new ArrayList<>() : null;
+        this.function = evaluator.getFunction();
     }
 
     public void train() {
         population.addAll(initializer.initialize());
         evaluatePopulation();
-        for (int i = 0; i < maxIterationCount; i++) {
+        for (int i = 0; function.getCounter() < maxIterationCount; i++) {
             selection.doSelection(population);
             evaluatePopulation();
             conditionallySave(i + 1);

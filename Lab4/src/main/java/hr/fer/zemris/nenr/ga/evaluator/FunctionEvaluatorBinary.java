@@ -1,5 +1,6 @@
 package hr.fer.zemris.nenr.ga.evaluator;
 
+import hr.fer.zemris.apr.optimisations.functions.CountingFunction;
 import hr.fer.zemris.nenr.ga.domain.InstanceBinary;
 
 import java.util.function.BiFunction;
@@ -7,17 +8,17 @@ import java.util.function.BiFunction;
 public class FunctionEvaluatorBinary implements Evaluator<InstanceBinary> {
 
     private final BiFunction<Double, Double, Double> errorCollectingFunction;
-    private final IFunction function;
+    private final CountingFunction<double[], Double> function;
     private final double[] minValue;
     private final double[] maxValue;
 
     public FunctionEvaluatorBinary(IFunction function, double[] minValue, double[] maxValue) {
-        this((expected, actual) -> Math.pow(expected - actual, 2), function, minValue, maxValue);
+        this((expected, actual) -> Math.abs(expected - actual), function, minValue, maxValue);
     }
 
     public FunctionEvaluatorBinary(BiFunction<Double, Double, Double> errorCollectingFuction, IFunction function, double[] minValue, double[] maxValue) {
         this.errorCollectingFunction = errorCollectingFuction;
-        this.function = function;
+        this.function = new CountingFunction<>(function::valueAt);
         this.minValue = minValue;
         this.maxValue = maxValue;
     }
@@ -44,11 +45,16 @@ public class FunctionEvaluatorBinary implements Evaluator<InstanceBinary> {
     @Override
     public double evaluate(InstanceBinary instance) {
         var value = transformIntoDoubleRepresentation(instance.getChromosomes(), minValue, maxValue);
-        return errorCollectingFunction.apply(0.0, function.valueAt(value));
+        return errorCollectingFunction.apply(0.0, function.apply(value));
     }
 
     @Override
     public double[] evaluateDoubleValue(InstanceBinary instance) {
         return transformIntoDoubleRepresentation(instance.getChromosomes(), minValue, maxValue);
+    }
+
+    @Override
+    public CountingFunction<double[], Double> getFunction() {
+        return function;
     }
 }

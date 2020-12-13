@@ -7,16 +7,17 @@ import hr.fer.zemris.nenr.ga.mutator.NormalNoiseMutator;
 import hr.fer.zemris.nenr.ga.picker.RouletteWheel;
 import hr.fer.zemris.nenr.ga.selection.GenerationalBreederSelection;
 import hr.fer.zemris.nenr.ga.selection.TournamentCannonSelection;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.stream.Collectors;
 
-import static hr.fer.zemris.nenr.ga.Functions.*;
+import static hr.fer.zemris.nenr.ga.functions.Functions.*;
 
 public class Task1Double {
 
     private final double MIN_VALUE = -50;
     private final double MAX_VALUE = 150;
+    private final int MAX_ITERATION = 1000000;
 
     @Test
     public void f1() {
@@ -30,7 +31,7 @@ public class Task1Double {
 
         var picker = new RouletteWheel();   //doest work with random picker
         var selector = new GenerationalBreederSelection<>(mutator, picker, breeder, true);
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 15000, true);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, MAX_ITERATION, true);
 
         geneticAlgorithm.train();
         System.out.println(geneticAlgorithm.getFittest());
@@ -49,7 +50,7 @@ public class Task1Double {
 
         var picker = new RouletteWheel();   //doest work with random picker
         var selector = new GenerationalBreederSelection<>(mutator, picker, breeder, true);
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 5000, true);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, MAX_ITERATION, true);
 
         geneticAlgorithm.train();
         System.out.println(geneticAlgorithm.getFittest());
@@ -58,17 +59,17 @@ public class Task1Double {
 
     @Test
     public void f6() {
-        var populationInitializer = new PopulationInitializerDouble(1000,
+        var populationInitializer = new PopulationInitializerDouble(100,
                 new double[]{MIN_VALUE, MIN_VALUE},
                 new double[]{MAX_VALUE, MAX_VALUE});
 
-        SidedAverageBreeder breeder = new SidedAverageBreeder(0.8);
+        SidedAverageBreeder breeder = new SidedAverageBreeder(0.7);
         var mutator = new NormalNoiseMutator(1, 0.1);
         var evaluator = new FunctionEvaluatorDouble(F6_GENERATOR.apply(2));
 
         var picker = new RouletteWheel();   //doest work with random picker
-        var selector = new TournamentCannonSelection<>(breeder, evaluator, mutator, picker, 10);
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 5000, true);
+        var selector = new TournamentCannonSelection<>(breeder, evaluator, mutator, picker, 30);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, MAX_ITERATION / 10, true);
 
         geneticAlgorithm.train();
         System.out.println(geneticAlgorithm.getFittest());
@@ -87,7 +88,7 @@ public class Task1Double {
 
         var picker = new RouletteWheel();   //doest work with random picker
         var selector = new TournamentCannonSelection<>(breeder, evaluator, mutator, picker, 10);
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 5000, true);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, MAX_ITERATION, true);
 
         geneticAlgorithm.train();
         System.out.println(geneticAlgorithm.getFittest());

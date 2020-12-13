@@ -9,8 +9,8 @@ import hr.fer.zemris.nenr.ga.selection.GenerationalBreederSelection;
 
 import java.util.stream.Collectors;
 
-import static hr.fer.zemris.nenr.ga.Functions.F1;
 import static hr.fer.zemris.nenr.ga.GeneticAlgorithm.GeneticAlgorithmHistory;
+import static hr.fer.zemris.nenr.ga.functions.Functions.F1;
 
 public class Main {
 

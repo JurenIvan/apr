@@ -6,17 +6,18 @@ import hr.fer.zemris.nenr.ga.initializer.PopulationInitializerBinary;
 import hr.fer.zemris.nenr.ga.mutator.BinaryMutator;
 import hr.fer.zemris.nenr.ga.picker.RouletteWheelBinary;
 import hr.fer.zemris.nenr.ga.selection.TournamentCannonSelection;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static hr.fer.zemris.nenr.ga.Functions.*;
+import static hr.fer.zemris.nenr.ga.functions.Functions.*;
 
 public class Task1Binary {
 
     private final double MIN_VALUE = -4;
     private final double MAX_VALUE = 4;
+    private final int MAX_ITERATION = 1000000;
 
     @Test
     public void f1() {
@@ -30,7 +31,7 @@ public class Task1Binary {
         var picker = new RouletteWheelBinary();
         var selector = new TournamentCannonSelection<>(breeder, evaluator, mutator, picker, 10);
 
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 1000, true);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, MAX_ITERATION, true);
 
         geneticAlgorithm.train();
         System.out.println(
@@ -55,7 +56,7 @@ public class Task1Binary {
         var picker = new RouletteWheelBinary();
         var selector = new TournamentCannonSelection<>(breeder, evaluator, mutator, picker, 10);
 
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 1000, true);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, MAX_ITERATION, true);
 
         geneticAlgorithm.train();
         System.out.println(geneticAlgorithm.getFittest());
@@ -81,7 +82,7 @@ public class Task1Binary {
         var picker = new RouletteWheelBinary();
         var selector = new TournamentCannonSelection<>(breeder, evaluator, mutator, picker, 10);
 
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 1000, true);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, MAX_ITERATION, true);
 
         geneticAlgorithm.train();
         System.out.println(geneticAlgorithm.getFittest());
@@ -103,11 +104,11 @@ public class Task1Binary {
         var populationInitializer = new PopulationInitializerBinary(100, minRange.length, minRange, maxRange, new int[]{6, 6, 6, 6, 6});
         var evaluator = new FunctionEvaluatorBinary(F7_GENERATOR.apply(2), minRange, maxRange);
         var breeder = new SidedAverageBreederBinary(0.8);
-        var mutator = new BinaryMutator(0.001);
+        var mutator = new BinaryMutator(0.01);
         var picker = new RouletteWheelBinary();
         var selector = new TournamentCannonSelection<>(breeder, evaluator, mutator, picker, 10);
 
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 1000, true);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, MAX_ITERATION, true);
 
         geneticAlgorithm.train();
         System.out.println(geneticAlgorithm.getFittest());
