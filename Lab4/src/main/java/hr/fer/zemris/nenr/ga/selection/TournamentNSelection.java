@@ -47,7 +47,7 @@ public class TournamentNSelection<T extends GASolution<P>, P> implements Selecti
 
             var sorted = picked.stream().sorted(comparingDouble(a -> population.get(a).getFitness())).collect(Collectors.toList());
 
-            breedAndReplaceIfBetter(population, sorted.get(0), sorted.get(1), sorted.get(2));
+            breedAndReplaceIfBetter(population, sorted.get(sorted.size() - 1), sorted.get(1), sorted.get(2));
         }
     }
 
