@@ -107,7 +107,7 @@ public class GeneticAlgorithm<T extends GASolution<?>> {
 
         @Override
         public String toString() {
-            return "History{gen=%6d, generationFitness=%8.5f, bestInstance=%s}".formatted(generation, generationFitness, bestInstance);
+            return "History{gen=%6d, generationFitness=%10.3f, bestInstance=%s}".formatted(generation, generationFitness, bestInstance);
         }
     }
 }

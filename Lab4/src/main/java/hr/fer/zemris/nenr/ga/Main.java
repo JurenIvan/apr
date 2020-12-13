@@ -33,15 +33,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var populationInitializer = new PopulationInitializerDouble(100, new double[]{-4}, new double[]{-4});
+        var populationInitializer = new PopulationInitializerDouble(100, new double[]{-4, -4}, new double[]{4, 4});
         var evaluator = new FunctionEvaluatorDouble(F1);
 
         var breeder = new SidedAverageBreeder(0.5);
         var mutator = new NormalNoiseMutator(0.5, 0.01);
 
         var picker = new RouletteWheel();   //doest work with random picker
-        var selector = new GenerationalBreederSelection(mutator, picker, breeder, true);
-        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 5000, true);
+        var selector = new GenerationalBreederSelection<>(mutator, picker, breeder, true);
+        var geneticAlgorithm = new GeneticAlgorithm<>(mutator, evaluator, populationInitializer, selector, 10000, true);
 
         geneticAlgorithm.train();
         System.out.println(geneticAlgorithm.getFittest());
