@@ -1,7 +1,7 @@
 package hr.fer.zemris.nenr.ga.selection;
 
 import hr.fer.zemris.nenr.ga.breeder.Breeder;
-import hr.fer.zemris.nenr.ga.domain.InstanceDouble;
+import hr.fer.zemris.nenr.ga.domain.GASolution;
 import hr.fer.zemris.nenr.ga.evaluator.Evaluator;
 import hr.fer.zemris.nenr.ga.mutator.Mutator;
 import hr.fer.zemris.nenr.ga.picker.RouletteWheel;
@@ -13,14 +13,14 @@ import static java.lang.Math.max;
 /**
  * Select numberOfTournaments of pairs of parents. For each pair replace worse parent with child if child is better than worse parent.
  */
-public class TournamentRouletteSelection implements Selection<InstanceDouble> {
+public class TournamentRouletteSelection<T extends GASolution<P>, P> implements Selection<T> {
 
-    private final Breeder<InstanceDouble> breeder;
-    private final Evaluator<InstanceDouble> evaluator;
-    private final Mutator<InstanceDouble> mutator;
+    private final Breeder<T> breeder;
+    private final Evaluator<T> evaluator;
+    private final Mutator<T> mutator;
     private final int numberOfTournaments;
 
-    public TournamentRouletteSelection(Breeder<InstanceDouble> breeder, Evaluator<InstanceDouble> evaluator, Mutator<InstanceDouble> mutator, int numberOfTournaments) {
+    public TournamentRouletteSelection(Breeder<T> breeder, Evaluator<T> evaluator, Mutator<T> mutator, int numberOfTournaments) {
         this.breeder = breeder;
         this.evaluator = evaluator;
         this.mutator = mutator;
@@ -28,17 +28,17 @@ public class TournamentRouletteSelection implements Selection<InstanceDouble> {
     }
 
     @Override
-    public void doSelection(List<InstanceDouble> population) {
+    public void doSelection(List<T> population) {
         RouletteWheel rouletteWheel = new RouletteWheel();
 
         for (int i = 0; i < numberOfTournaments; i++) {
             int first = rouletteWheel.pickOne();
             int second = rouletteWheel.pickOne();
 
-            InstanceDouble dad = population.get(first);
-            InstanceDouble mom = population.get(second);
+            T dad = population.get(first);
+            T mom = population.get(second);
 
-            InstanceDouble child = breeder.mate(dad, mom);
+            T child = breeder.mate(dad, mom);
             mutator.mutate(child);
             child.setFitness(evaluator.evaluate(child));
 

@@ -1,7 +1,7 @@
 package hr.fer.zemris.nenr.ga.selection;
 
 import hr.fer.zemris.nenr.ga.breeder.Breeder;
-import hr.fer.zemris.nenr.ga.domain.InstanceDouble;
+import hr.fer.zemris.nenr.ga.domain.GASolution;
 import hr.fer.zemris.nenr.ga.evaluator.Evaluator;
 import hr.fer.zemris.nenr.ga.mutator.Mutator;
 
@@ -12,27 +12,27 @@ import static java.util.Comparator.comparing;
 /**
  * Replaces worst ones with children of fist 2/3 only if child is better than one of parents
  */
-public class TournamentModifiedSelection implements Selection<InstanceDouble> {
+public class TournamentModifiedSelection<T extends GASolution<P>, P> implements Selection<T> {
 
-    private final Breeder<InstanceDouble> breeder;
-    private final Evaluator<InstanceDouble> evaluator;
-    private final Mutator<InstanceDouble> mutator;
+    private final Breeder<T> breeder;
+    private final Evaluator<T> evaluator;
+    private final Mutator<T> mutator;
 
-    public TournamentModifiedSelection(Breeder<InstanceDouble> breeder, Evaluator<InstanceDouble> evaluator, Mutator<InstanceDouble> mutator) {
+    public TournamentModifiedSelection(Breeder<T> breeder, Evaluator<T> evaluator, Mutator<T> mutator) {
         this.breeder = breeder;
         this.evaluator = evaluator;
         this.mutator = mutator;
     }
 
     @Override
-    public void doSelection(List<InstanceDouble> population) {
-        population.sort(comparing(InstanceDouble::getFitness));
+    public void doSelection(List<T> population) {
+        population.sort(comparing(T::getFitness));
         int replaced = 1;
         for (int i = 0; i < population.size() / 3; i++) {
-            InstanceDouble dad = population.get(2 * i);
-            InstanceDouble mom = population.get(2 * i + 1);
+            T dad = population.get(2 * i);
+            T mom = population.get(2 * i + 1);
 
-            InstanceDouble child = breeder.mate(dad, mom);
+            T child = breeder.mate(dad, mom);
             mutator.mutate(child);
             child.setFitness(evaluator.evaluate(child));
             if (child.getFitness() < Math.max(dad.getFitness(), mom.getFitness()))

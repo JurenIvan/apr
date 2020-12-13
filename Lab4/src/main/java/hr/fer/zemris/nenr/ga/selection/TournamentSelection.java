@@ -1,7 +1,7 @@
 package hr.fer.zemris.nenr.ga.selection;
 
 import hr.fer.zemris.nenr.ga.breeder.Breeder;
-import hr.fer.zemris.nenr.ga.domain.InstanceDouble;
+import hr.fer.zemris.nenr.ga.domain.GASolution;
 import hr.fer.zemris.nenr.ga.evaluator.Evaluator;
 import hr.fer.zemris.nenr.ga.mutator.Mutator;
 
@@ -13,26 +13,26 @@ import static java.util.Comparator.comparing;
 /**
  * Replaces worst n/3 intances with children of best 2/3
  */
-public class TournamentSelection implements Selection<InstanceDouble> {
+public class TournamentSelection<T extends GASolution<P>, P> implements Selection<T> {
 
-    private final Breeder<InstanceDouble> breeder;
-    private final Evaluator<InstanceDouble> evaluator;
-    private final Mutator<InstanceDouble> mutator;
+    private final Breeder<T> breeder;
+    private final Evaluator<T> evaluator;
+    private final Mutator<T> mutator;
 
-    public TournamentSelection(Breeder<InstanceDouble> breeder, Evaluator<InstanceDouble> evaluator, Mutator<InstanceDouble> mutator) {
+    public TournamentSelection(Breeder<T> breeder, Evaluator<T> evaluator, Mutator<T> mutator) {
         this.breeder = breeder;
         this.evaluator = evaluator;
         this.mutator = mutator;
     }
 
     @Override
-    public void doSelection(List<InstanceDouble> population) {
-        population.sort(comparing(InstanceDouble::getFitness));
+    public void doSelection(List<T> population) {
+        population.sort(comparing(T::getFitness));
         for (int i = 0; i < population.size() / 2; i++) {
-            InstanceDouble dad = population.get(2 * i);
-            InstanceDouble mom = population.get(2 * i + 1);
+            T dad = population.get(2 * i);
+            T mom = population.get(2 * i + 1);
 
-            InstanceDouble child = breeder.mate(dad, mom);
+            T child = breeder.mate(dad, mom);
             mutator.mutate(child);
             child.setFitness(evaluator.evaluate(child));
             if (child.getFitness() > max(dad.getFitness(), mom.getFitness())) return;
