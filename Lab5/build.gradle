@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    implementation(project(':Lab1'))
+    implementation(project(':Lab2'))
+    implementation(project(':Lab3'))
+    implementation('org.knowm.xchart:xchart:3.6.5')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
