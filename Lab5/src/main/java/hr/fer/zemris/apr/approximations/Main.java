@@ -1,4 +1,4 @@
-package hr.fer.zemris.apr.aproximations;
+package hr.fer.zemris.apr.approximations;
 
 public class Main {
 
