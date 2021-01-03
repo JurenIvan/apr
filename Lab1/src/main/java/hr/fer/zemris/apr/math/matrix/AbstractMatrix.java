@@ -106,4 +106,36 @@ public abstract class AbstractMatrix implements IMatrix {
     public IVector solveSystem(EquationSolver solver, IVector right) {
         return solver.solve(this, right);
     }
+
+    @Override
+    public IMatrix nMultiply(double factor) {
+        IMatrix matrix = newInstance(getRowsCount(), getColsCount());
+
+        for (int i = 0; i < getRowsCount(); i++) {
+            for (int j = 0; j < getColsCount(); j++) {
+                matrix.set(i, j, get(i, j) * factor);
+            }
+        }
+        return matrix;
+    }
+
+    @Override
+    public IMatrix multiply(double factor) {
+        for (int i = 0; i < getRowsCount(); i++) {
+            for (int j = 0; j < getColsCount(); j++) {
+                set(i, j, get(i, j) * factor);
+            }
+        }
+        return this;
+    }
+
+    public boolean equals(IMatrix matrix, int precision) {
+        for (int i = 0; i < getRowsCount(); i++) {
+            for (int j = 0; j < getColsCount(); j++) {
+                if (Math.abs(get(i, j) - matrix.get(i, j)) > Math.pow(10, -1 * precision))
+                    return false;
+            }
+        }
+        return true;
+    }
 }

@@ -32,6 +32,12 @@ public interface IMatrix {
 
     IMatrix nMultiply(IMatrix other);
 
+    IMatrix nMultiply(double factor);
+
+    IMatrix multiply(double factor);
+
+    boolean equals(IMatrix matrix, int precision);
+
     IMatrix subMatrix(int row, int column, boolean liveView);
 
     double[][] toArray();

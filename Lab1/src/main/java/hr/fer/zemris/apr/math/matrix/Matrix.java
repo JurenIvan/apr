@@ -45,6 +45,24 @@ public class Matrix extends AbstractMatrix {
         return new Matrix(matrixElements.size(), matrixElements.get(0).size(), elements, true);
     }
 
+    public static Matrix ones(int rows, int cols) {
+        var m = new Matrix(rows, cols);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                m.set(rows, cols, 1);
+            }
+        }
+        return m;
+    }
+
+    public static Matrix e(int rows, int cols) {
+        var m = new Matrix(rows, cols);
+        for (int i = 0; i < rows; i++) {
+            m.set(i, i, 1.0);
+        }
+        return m;
+    }
+
     @Override
     public int getRowsCount() {
         return elements.length;
@@ -90,16 +108,6 @@ public class Matrix extends AbstractMatrix {
         Matrix matrix = (Matrix) o;
 
         return equals(matrix, 4);
-    }
-
-    public boolean equals(Matrix matrix, int precision) {
-        for (int i = 0; i < getRowsCount(); i++) {
-            for (int j = 0; j < getColsCount(); j++) {
-                if (Math.abs(get(i, j) - matrix.get(i, j)) > Math.pow(10, -1 * precision))
-                    return false;
-            }
-        }
-        return true;
     }
 
     @Override
