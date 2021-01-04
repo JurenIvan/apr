@@ -12,8 +12,12 @@ class EulerMethodTest {
         var a = Matrix.parseString("0 1 | -10 -5");
         var x = Matrix.parseString("1 | 0");
 
-        var euler = new EulerMethod(x, a, 0.8, 0.4);
-        euler.approximate();
+        var b = Matrix.parseString("0 0 | 0 0 ");
+        var r = Matrix.parseString("0 | 0");
+
+
+        var euler = new EulerMethod();
+        euler.approximate(x, a, b, r, 0.8, 0.4, false);
         var history = euler.getHistory();
 
         Assertions.assertEquals(new ApproxHistoryRecord(0, Matrix.parseString("1 | 0")), history.get(0));

@@ -9,32 +9,15 @@ import java.util.List;
 
 public class EulerMethod implements Approximation {
 
-    private final IMatrix x0;
-    private final IMatrix a;
-    //    private final IMatrix b;
-//    private final IMatrix r;
-    private final double t;
-    private final double interval;
-    private final List<ApproxHistoryRecord> history;
-
-    //    public EulerMethod(IMatrix x0, IMatrix a, IMatrix b, IMatrix r, double t, double interval) {
-    public EulerMethod(IMatrix x0, IMatrix a, double t, double interval) {
-        this.x0 = x0;
-        this.a = a;
-//        this.b = b;
-//        this.r = r;
-        this.t = t;
-        this.interval = interval;
-        history = new ArrayList<>((int) (t / interval) + 1);
-    }
+    private final List<ApproxHistoryRecord> history = new ArrayList<>();
 
     @Override
-    public IMatrix approximate() {
+    public IMatrix approximate(IMatrix x0, IMatrix a, IMatrix b, IMatrix r, double t, double interval, boolean timeDependant) {
         IMatrix x = x0.copy();
         double i;
         history.add(new ApproxHistoryRecord(0, x));
         for (i = interval; i <= t; i += interval) {
-            x = x.nAdd(a.nMultiply(x).multiply(interval));
+            x = x.nAdd(a.nMultiply(x).add(b.nMultiply(r).multiply(timeDependant ? i - interval : 1)).multiply(interval));
             history.add(new ApproxHistoryRecord(i, x));
         }
         return x;
