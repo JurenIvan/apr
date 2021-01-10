@@ -25,10 +25,10 @@ public class Demo {
     public static void main(String[] args) {
         Demo demo = new Demo();
 
-//        demo.task1();
+        demo.task1();
 //        demo.task2();
 //        demo.task2_1(); //did this to have the same starting point, more relevant
-        demo.task3();
+//        demo.task3();
 //        demo.task4();
 //        demo.task5();
     }
